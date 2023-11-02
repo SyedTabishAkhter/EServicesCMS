@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Index";
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/ServiceGuide.js"></script>
+    <link href="~/Content/MyModal.css" rel="stylesheet" />
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Lookup", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Lookup", "lblManageGuide", "Manage Service Guide")</h1></a>
+            </div>
+        </div>
+    </div>
+    <div class="sub_header" style="padding: 10px 0;">
+        <div class="page_wrap">
+            <h2>Service Guide Hints</h2>
+            <input type="hidden" id="publishUrl" value="@Url.Action("PublishContent", "ServiceGuide")" />
+        </div>
+    </div>
+    <div class="tabs material">
+        <div class="tab_heads jcc mb10">
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblCharts", "Personalization")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Content", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHeader", "Content")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Procedures", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblProcedures", "Procedures")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Channels", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblChannels", "Channels")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Support", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSupport", "Support")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FAQ", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblFAQ", "FAQ")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblVideos", "Videos")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Hints", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab on">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHints", "Hints")</a>
+        </div>
+    </div>
+    @{
+
+        <div class="content p20">
+            <div class="cards tac row" id="dvData">
+                @if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_ADD_LOOKUP") == true)
+                {
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <a id="myBtn" class="card p30">
+                            <div class="icon add"></div>
+                            <div class="title">
+                                @EServicesCms.Common.DbManager.GetText("Lookup", "lblAddLookup", "ADD NEW")
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+</article>
+<input id="ajaxUrl" type="hidden" value="@EServicesCms.Common.Helper.URL_Encode(Url.Action("AjaxGetLkHints", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" />
+<div id="dvForm" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h2>@EServicesCms.Common.DbManager.GetText("Lookup", "lblManageHints", "Manage Hints")</h2>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-horizontal">
+
+                            <div class="form-group" style="display:none;">
+                                <label for="" class="col-sm-3 control-label smallText">Code</label>
+                                <div class="col-sm-6 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-info"></i></span>
+                                    <input type="text" class="form-control" id="Code" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "UrlEng", "Url (EN)") <span class="mRed">*</span></label>
+                                <div class="col-sm-6 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    @Html.DropDownList("TypeId", ViewBag.Types as SelectList, EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSelectType", "Select Type"), new { id = "TypeId", @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "HeaderEng", "Header (EN)") <span class="mRed">*</span></label>
+                                <div class="col-sm-12 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('HeaderEng');" onblur="stripHtmlToText('HeaderEng');" placeholder="Enter Header English" class="form-control" id="HeaderEng" required />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionEn", "Description") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('DescriptionEng');" onblur="stripHtmlToText('DescriptionEng');" placeholder="Enter Description English" class="form-control" id="DescriptionEng" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "HeaderAlt", "Header (AR)") <span class="mRed">*</span></label>
+                                <div class="col-sm-12 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('HeaderAlt');" onblur="stripHtmlToText('HeaderAlt');" placeholder="Enter Header Arabic" class="form-control" id="HeaderAlt" required />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionAr", "Description (AR)") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('DescriptionAlt');" onblur="stripHtmlToText('DescriptionAlt');" placeholder="Enter Description Arabic" class="form-control" id="DescriptionAlt" required />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row" align="center">
+                        <div class="col-md-12">
+                            <button type="button" id="btnSave" class="btn btn-sm btn-warning" onclick="SaveHint();"><i class="ace-icon fa fa-save"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblSave", "Save")</button>
+                            <button type="button" id="btnClose" onclick="CloseForm();" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-remove"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblClose", "Close")</button>
+                            <input id="saveUrl" type="hidden" value="@EServicesCms.Common.Helper.URL_Encode(Url.Action("AjaxSaveHint", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" />
+                            <input id="deleteUrl" type="hidden" value="@Url.Action("AjaxDeleteHint", "ServiceGuide")" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+    GetServiceGuideHints();
+    var modal = document.getElementById("dvForm");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    if (btn != null) {
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    @Html.Raw(ViewBag.PageAlertCodes);
+</script>
+

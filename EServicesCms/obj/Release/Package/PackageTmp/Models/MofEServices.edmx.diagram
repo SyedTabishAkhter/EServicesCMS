@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="052354dce3c0429d8c524708ba3b2fc7" Name="Diagram1" ZoomLevel="10">
+        <EntityTypeShape EntityType="MofEservicesModel.Captcha" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.Logger" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.RequestAndEnquiriesDetailsLog" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.RequestsAndEnquiriesLog" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.VersionHistory" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkAction" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkCountry" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkEmirate" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkGroup" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkInputType" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkInquiryType" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkLookup" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkPersonType" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MofEservicesModel.LoginAudit" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkUserAttributesSSO" Width="1.5" PointX="7.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkInputLanguage" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.RequestRedirection" Width="1.5" PointX="16.375" PointY="4.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkLogicalOperator" Width="1.5" PointX="16.375" PointY="8.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.API_Sources" Width="1.5" PointX="18.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.TokenClientKey" Width="1.5" PointX="19.75" PointY="14.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.TokenCompany" Width="1.5" PointX="17.75" PointY="19.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.TokenManager" Width="1.5" PointX="19.75" PointY="18.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.TokenUser" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceFormsDrilldownConfig" Width="1.5" PointX="18.75" PointY="10.25" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceInputLookupAction" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceInputTooltip" Width="1.5" PointX="0.75" PointY="20.25" />
+        <AssociationConnector Association="MofEservicesModel.FK_ServiceInputLookupActions_LkLookups" />
+        <EntityTypeShape EntityType="MofEservicesModel.Attachment" Width="1.5" PointX="38.75" PointY="22.625" />
+        <EntityTypeShape EntityType="MofEservicesModel.EmailNotification" Width="1.5" PointX="38.75" PointY="17.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LookupOption" Width="1.5" PointX="8" PointY="23.5" />
+        <AssociationConnector Association="MofEservicesModel.FK_LookupOptions_LkLookups" />
+        <EntityTypeShape EntityType="MofEservicesModel.LookupOptions_Log" Width="1.5" PointX="22.75" PointY="12.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceInputLookupActions_Log" Width="1.5" PointX="3.75" PointY="23.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideHintAction" Width="1.5" PointX="6.375" PointY="27.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideHint" Width="1.5" PointX="27.375" PointY="7.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkServiceGuideHintType" Width="1.5" PointX="8.375" PointY="27.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuide" Width="1.5" PointX="19.375" PointY="27.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideFaq" Width="1.5" PointX="3.375" PointY="28.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideVideo" Width="1.5" PointX="12.375" PointY="28.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideProcedure" Width="1.5" PointX="21.375" PointY="28.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.UserActivityLogging" Width="1.5" PointX="23.375" PointY="28.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkMenu" Width="1.5" PointX="0.75" PointY="29.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideRating" Width="1.5" PointX="27.375" PointY="15.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceType" Width="1.5" PointX="25.375" PointY="19.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.RoleGroup" Width="1.5" PointX="9.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.RequestAndEnquiriesDetail" Width="1.5" PointX="38.75" PointY="13.625" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceFormsDrilldownConfig_Log" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.UserScreenAction" Width="1.5" PointX="7.5" PointY="19.125" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkLookups_Log" Width="1.5" PointX="25.375" PointY="0.75" />
+        <AssociationConnector Association="MofEservicesModel.FK_UserScreenActions_LkActions" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceInputTooltips_Log" Width="1.5" PointX="23.375" PointY="7.25" />
+        <EntityTypeShape EntityType="MofEservicesModel.UserFavouriteService" Width="1.5" PointX="31.25" PointY="31.125" />
+        <EntityTypeShape EntityType="MofEservicesModel.AItemDetail" Width="1.5" PointX="14.375" PointY="13.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.AItem" Width="1.5" PointX="16.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkScreenLabel" Width="1.5" PointX="11.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkScreen" Width="1.5" PointX="25.375" PointY="32" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkScreenValidationMessage" Width="1.5" PointX="27.625" PointY="32.25" />
+        <AssociationConnector Association="MofEservicesModel.FK_LkScreenValidationMessages_LkScreens" />
+        <EntityTypeShape EntityType="MofEservicesModel.Department" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.User" Width="1.5" PointX="17" PointY="33.125" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkRole" Width="1.5" PointX="14.75" PointY="34" />
+        <AssociationConnector Association="MofEservicesModel.FK_Users_LkRoles" />
+        <EntityTypeShape EntityType="MofEservicesModel.HitCounter" Width="1.5" PointX="13.375" PointY="17.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceEntity" Width="1.5" PointX="26.75" PointY="24" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideSupport" Width="1.5" PointX="8.375" PointY="31.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.vLookupOption" Width="1.5" PointX="5.375" PointY="32.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideChannel" Width="1.5" PointX="27.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideSurveyQuery" Width="1.5" PointX="33.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideSurveyQueryOption" Width="1.5" PointX="33.375" PointY="4.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceGuideSurveyRespons" Width="1.5" PointX="10.375" PointY="33.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.UserAuthDetail" Width="1.5" PointX="19.375" PointY="33.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceAudience" Width="1.5" PointX="3.75" PointY="18.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceCardEntity" Width="1.5" PointX="18.75" PointY="5.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceCategories_Log" Width="1.5" PointX="10.75" PointY="19.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceChannel" Width="1.5" PointX="20.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceCommentsAttachmentsConfig" Width="1.5" PointX="12.75" PointY="20.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceCommentsAttachmentsConfig_Log" Width="1.5" PointX="14.75" PointY="20.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceCondition" Width="1.5" PointX="22.75" PointY="16.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceContact" Width="1.5" PointX="22.75" PointY="20.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceDepartment" Width="1.5" PointX="16.75" PointY="23.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceDocument" Width="1.5" PointX="18.75" PointY="23.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceDuration" Width="1.5" PointX="0.75" PointY="24.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceEntitiesMapping" Width="1.5" PointX="21.75" PointY="24.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceFee" Width="1.5" PointX="16.75" PointY="27.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceFormsConfig" Width="1.5" PointX="33.875" PointY="40.375" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceFormsConfig_Log" Width="1.5" PointX="29.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceLocation" Width="1.5" PointX="23.75" PointY="24.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceProcedure" Width="1.5" PointX="27.75" PointY="19.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceRating" Width="1.5" PointX="31.625" PointY="36.875" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceResponsibleOfficer" Width="1.5" PointX="29.75" PointY="16.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.Services_Log" Width="1.5" PointX="29.75" PointY="20.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceTab" Width="1.5" PointX="31.75" PointY="17.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceTabs_Log" Width="1.5" PointX="31.75" PointY="21.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceTemplate" Width="1.5" PointX="31.625" PointY="50.5" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceTemplates_Log" Width="1.5" PointX="31.75" PointY="25.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceUserType" Width="1.5" PointX="25.75" PointY="28.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceViewer" Width="1.5" PointX="31.625" PointY="47.25" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceViewers_Log" Width="1.5" PointX="31.75" PointY="8.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceRequirement" Width="1.5" PointX="29.375" PointY="12.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceFaq" Width="1.5" PointX="33.375" PointY="31.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceVideo" Width="1.5" PointX="34.375" PointY="17.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceVideos_Log" Width="1.5" PointX="21.375" PointY="34.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.RequestsAndEnquiry" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceCategory" Width="1.5" PointX="31.25" PointY="58.25" />
+        <EntityTypeShape EntityType="MofEservicesModel.Service" Width="1.5" PointX="29" PointY="55.875" />
+        <EntityTypeShape EntityType="MofEservicesModel.LkRequestStatu" Width="1.5" PointX="31.375" PointY="12.75" />
+        <AssociationConnector Association="MofEservicesModel.FK_ServiceCategories_Services" />
+        <AssociationConnector Association="MofEservicesModel.FK_ServiceFormsConfig_ServiceCategories" />
+        <AssociationConnector Association="MofEservicesModel.FK_Services_ServiceEntities" />
+        <AssociationConnector Association="MofEservicesModel.FK_ServiceFormsConfig_Services" />
+        <AssociationConnector Association="MofEservicesModel.FK_ServiceRatings_Services" />
+        <AssociationConnector Association="MofEservicesModel.FK_ServiceTemplates_Services" />
+        <AssociationConnector Association="MofEservicesModel.FK_ServiceViewers_Services" />
+        <AssociationConnector Association="MofEservicesModel.FK_UserFavouriteServices_Services" />
+        <EntityTypeShape EntityType="MofEservicesModel.NoActionUserActivity" Width="1.5" PointX="33.375" PointY="12.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.NoActionUser" Width="1.5" PointX="34.375" PointY="23.75" />
+        <EntityTypeShape EntityType="MofEservicesModel.ServiceTemplatesData" Width="1.5" PointX="35.375" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "Index";
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <link href="~/Content/highcharts.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/dashboard.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/highcharts.js" type="text/javascript"></script>
+
+    <style>
+        select {
+            background-color: #cda04d;
+            border: none;
+            padding: 0 1em 0 0;
+            margin: 0;
+            width: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: inherit;
+            line-height: inherit;
+            z-index: 1;
+            outline: none;
+            color:white;
+        }
+        .empty-state {
+            width: 750px;
+            margin: 40px auto;
+            background: #ffffff;
+            box-shadow: 1px 2px 10px #e1e3ec;
+            border-radius: 4px;
+        }
+        .empty-state__message {
+            color: #cda04d;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-top: 0.85rem;
+            text-align: center;
+        }
+    </style>
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Dashboard", "lblTitle", "Dashboard")</h1></a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblManageServiceGuide", "Service Guide")</a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                @{
+                    if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_GUIDE_PULL") == true)
+                    {
+                        <button class="main" type="button" onclick="PublishCards();">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblPublishCards", "Pull Aris Data")</button>
+                    }
+                }
+                @{
+                    if (EServicesCms.Common.WebConfig.GetIntValue("ServiceGuide_CacheMode") == 1 && EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_GUIDE_PUSH") == true)
+                    {
+                        <button class="main" type="button" onclick="Publish();">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblPublish", "Publish Guide")</button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="sub_header" style="padding: 10px 0;">
+        <div class="page_wrap">
+            <h2>@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSGStats", "Service Guide Statistics")</h2>
+            <input type="hidden" id="publishCardsUrl" value="@Url.Action("PublishServiceCardsContent", "ServiceGuide")" />
+            <input type="hidden" id="publishUrl" value="@Url.Action("PublishContent", "ServiceGuide")" />
+        </div>
+    </div>
+    <div class="tabs material">
+        <div class="tab_heads jcc mb10">
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab on">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblCharts", "Personalization")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Content", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHeader", "Content")</a>
+
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Beneficiaries", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblBeneficiaries", "Beneficiaries")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Types", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTypes", "Types")</a>
+
+
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Procedures", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblProcedures", "Procedures")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Channels", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblChannels", "Channels")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Support", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSupport", "Support")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FAQ", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblFAQ", "FAQ")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblVideos", "Videos")</a>
+            @*<a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Hints", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHints", "Hints")</a>*@
+        </div>
+    </div>
+
+    <div class="categoryWrapper" id="dvCategories">
+
+        <div class="row">
+            <div class="col">
+                @Html.Partial("_KpiByKeywords")
+            </div>
+
+            <div class="col">
+                @Html.Partial("_KpiByServices")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.Partial("_KpiByServiceTypes")
+            </div>
+
+            <div class="col">
+                @Html.Partial("_KpiByUserType")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.Partial("_KpiByRatings")
+            </div>
+
+            <div class="col">
+                @Html.Partial("_KpiByVisitors")
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+    @Html.Raw(ViewBag.PageAlertCodes);
+
+    function Publish() {
+
+
+        Swal.fire({
+            icon: 'question',
+            text: ShowAlert('ConfirmPublish', '1'),
+            //showCloseButton: true,
+            showCancelButton: true,
+            //focusConfirm: true,
+            confirmButtonText: ShowAlert('YesButton', '1'),
+            cancelButtonText: ShowAlert('NoButton', '1'),
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: $('#publishUrl').val(),
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: null,// JSON.stringify(iObject),
+                        success: function (response) {
+                            Swal.fire({ icon: response.Icon, text: response.Message, confirmButtonText: ShowAlert('OkButton', '1') })
+                        },
+                        error: function (jq, status, message) { console.log(status); },
+                    });
+
+            }
+        })
+
+
+    }
+
+    function PublishCards() {
+
+
+        Swal.fire({
+            icon: 'question',
+            text: ShowAlert('ConfirmPublishCards', '1'),
+            //showCloseButton: true,
+            showCancelButton: true,
+            //focusConfirm: true,
+            confirmButtonText: ShowAlert('YesButton', '1'),
+            cancelButtonText: ShowAlert('NoButton', '1'),
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: $('#publishCardsUrl').val(),
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: null,// JSON.stringify(iObject),
+                        success: function (response) {
+                            Swal.fire({ icon: response.Icon, text: response.Message, confirmButtonText: ShowAlert('OkButton', '1') })
+                        },
+                        error: function (jq, status, message) { console.log(status); },
+                    });
+
+            }
+        })
+    }
+</script>
+

@@ -1,0 +1,107 @@
+﻿@model EServicesCms.Models.ServiceGuide
+@{
+    ViewBag.Title = "Index";
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/ServiceGuideContent.js"></script>
+    <script type="text/javascript" src="~/Scripts/Common.js"></script>
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Dashboard", "lblTitle", "Dashboard")</h1></a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblManageServiceGuide", "Service Guide")</a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                @{
+                    if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_GUIDE_PULL") == true)
+                    {
+                        <button class="main" type="button" onclick="PublishCards();">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblPublishCards", "Pull Aris Data")</button>
+                    }
+                }
+                @{
+                    if (EServicesCms.Common.WebConfig.GetIntValue("ServiceGuide_CacheMode") == 1 && EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_GUIDE_PUSH") == true)
+                    {
+                        <button class="main" type="button" onclick="Publish();">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblPublish", "Publish Guide")</button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="sub_header" style="padding: 10px 0;">
+        <div class="page_wrap">
+            <h2>@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSGContent", "Service Guide Content")</h2>
+            <input type="hidden" id="publishUrl" value="@Url.Action("PublishContent", "ServiceGuide")" />
+            <input type="hidden" id="publishCardsUrl" value="@Url.Action("PublishServiceCardsContent", "ServiceGuide")" />
+        </div>
+    </div>
+    <div class="tabs material">
+        <div class="tab_heads jcc mb10">
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblCharts", "Personalization")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Content", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab on">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHeader", "Content")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Beneficiaries", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblBeneficiaries", "Beneficiaries")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Types", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTypes", "Types")</a>
+
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Procedures", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblProcedures", "Procedures")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Channels", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblChannels", "Channels")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Support", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSupport", "Support")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FAQ", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblFAQ", "FAQ")</a>
+            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblVideos", "Videos")</a>
+            @*<a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Hints", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHints", "Hints")</a>*@
+        </div>
+    </div>
+
+    <div class="page_wrap">
+        <div class="bg_white p40">
+            <div class="row">
+                <div class="col-6">
+                    <label for="">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "TitleEng", "Title English") <span class="mRed">*</span></label>
+                    <input type="text" onkeypress="stripHtmlToText('TitleEng');" onblur="stripHtmlToText('TitleEng');" name="TitleEng" id="TitleEng" value="@Model.TitleEng" required />
+                </div>
+                <div class="col-6">
+                    <label for="">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "TitleAlt", "Title Arabic") <span class="mRed">*</span></label>
+                    <input type="hidden" value="@Url.Action("SaveServiceGuideContent","ServiceGuide")" Class="form-control" id="saveUrl" />
+                    <input type="text" onkeypress="stripHtmlToText('TitleAlt');" onblur="stripHtmlToText('TitleAlt');" dir="rtl" name="TitleAlt" id="TitleAlt" value="@Model.TitleAlt" required />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "DescriptionEng", "Description English") <span class="mRed">*</span></label>
+                    <textarea dir="ltr" id="DescriptionEng" name="DescriptionEng" rows="3" onkeypress="stripHtmlToText('DescriptionEng');" onblur="stripHtmlToText('DescriptionEng');">@Model.DescriptionEng</textarea>
+                </div>
+                <div class="col-6">
+                    <label for="">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "DescriptionAlt", "Description Arabic") <span class="mRed">*</span></label>
+                    <textarea dir="rtl" id="DescriptionAlt" name="DescriptionAlt" rows="3" onkeypress="stripHtmlToText('DescriptionAlt');" onblur="stripHtmlToText('DescriptionAlt');">@Model.DescriptionAlt</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "BannerUrlEng", "Banner Url English")</label>
+                    <input  type="text" onkeypress="stripHtmlToText('UrlEng');" onblur="stripHtmlToText('UrlEng');" name="UrlEng" id="UrlEng" value="@Model.UrlEng" />
+                </div>
+                <div class="col-6">
+                    <label for="">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "BannerUrlAlt", "Banner Url Arabic")</label>
+                    <input  type="text" onkeypress="stripHtmlToText('UrlAlt');" onblur="stripHtmlToText('UrlAlt');" dir="rtl" name="UrlAlt" id="UrlAlt" value="@Model.UrlAlt" />
+                </div>
+            </div>
+            @{
+                if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_GUIDE_CONTENT_UPDATE") == true)
+                {
+                    <div class="row">
+                        <div class="col-12 centerText">
+                            <button class="main" type="button" onclick="SaveContent();">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSave", "Save Content")</button>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</article>
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+    @Html.Raw(ViewBag.PageAlertCodes);
+</script>

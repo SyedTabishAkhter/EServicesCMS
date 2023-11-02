@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "Index";
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Lookup.js"></script>
+    <link href="~/Content/MyModal.css" rel="stylesheet" />
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Lookup", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Sources", "Lookup", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Lookup", "lblApiSources", "API Sources")</h1></a>
+            </div>
+        </div>
+    </div>
+    @{
+
+        <div class="content p20">
+            <div class="cards tac row" id="dvData">
+                @if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_API_ADD") == true)
+                {
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <a id="myBtn" class="card p30">
+                            <div class="icon add"></div>
+                            <div class="title">
+                                @EServicesCms.Common.DbManager.GetText("Lookup", "lblAddLookup", "ADD NEW API SOURCE")
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+</article>
+<input id="ajaxUrl" type="hidden" value="@EServicesCms.Common.Helper.URL_Encode(Url.Action("AjaxGetApiSources", "Lookup", null, Request.Url.Scheme, null) +"?id=1")" />
+<div id="dvForm" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h2>@EServicesCms.Common.DbManager.GetText("Lookup", "lblManageAPI", "Manage API Sources")</h2>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-horizontal">
+
+                            <div class="form-group" style="display:none;">
+                                <label for="" class="col-sm-3 control-label smallText">Code</label>
+                                <div class="col-sm-6 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-info"></i></span>
+                                    <input type="text" class="form-control" id="ApiSourceId" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionEn", "Source Name") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('ApiSourceName');" onblur="stripHtmlToText('ApiSourceName');" placeholder="Enter Source Name" class="form-control" id="ApiSourceName" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionAr", "API Url") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" placeholder="Enter API Url" class="form-control" id="ApiAccessURL" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionAr", "API Key") </label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text"  placeholder="Enter API Key" class="form-control" id="ApiKey"  />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionAr", "API UserName") </label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text"  placeholder="Enter API UserName" class="form-control" id="ApiUsername" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionAr", "API Password")</label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text"  placeholder="Enter API Password" class="form-control" id="ApiPassword" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row" align="center">
+                        <div class="col-md-12">
+                            <button type="button" id="btnSave" class="btn btn-sm btn-warning" onclick="SaveApiSource();"><i class="ace-icon fa fa-save"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblSave", "Save")</button>
+                            <button type="button" id="btnClose" onclick="CloseApiForm();" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-remove"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblClose", "Close")</button>
+                            <input id="saveUrl" type="hidden" value="@EServicesCms.Common.Helper.URL_Encode(Url.Action("AjaxSaveApiSources", "Lookup", null, Request.Url.Scheme, null) +"?id=1")" />
+                            <input id="deleteUrl" type="hidden" value="@Url.Action("AjaxDeleteApiSource", "Lookup")" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+    @Html.Raw(ViewBag.PageAlertCodes);
+    GetApiSources();
+    var modal = document.getElementById("dvForm");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    if (btn != null) {
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+

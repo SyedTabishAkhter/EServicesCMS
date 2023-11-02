@@ -1,0 +1,241 @@
+﻿@{
+    ViewBag.Title = "Index";
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Services.js"></script>
+    <link href="~/Content/MyModal.css" rel="stylesheet" />
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Dashboard", "lblTitle", "Dashboard")</h1></a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblManageServiceGuide", "Service Guide")</a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                @{
+                    if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_GUIDE_PULL") == true)
+                    {
+                        <button class="main" type="button" onclick="PublishCards();">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblPublishCards", "Pull Aris Data")</button>
+                    }
+                }
+                @{
+                    if (EServicesCms.Common.WebConfig.GetIntValue("ServiceGuide_CacheMode") == 1 && EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_GUIDE_PUSH") == true)
+                    {
+                        <button class="main" type="button" onclick="Publish();">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblPublish", "Publish Guide")</button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="sub_header" style="padding: 10px 0;">
+        <div class="page_wrap">
+            <h2>@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSGBeneficiaries", "Service Guide Beneficiaries")</h2>
+            <input type="hidden" id="publishCardsUrl" value="@Url.Action("PublishServiceCardsContent", "ServiceGuide")" />
+            <input type="hidden" id="publishUrl" value="@Url.Action("PublishContent", "ServiceGuide")" />
+        </div>
+    </div>
+    <div class="content p20">
+        <div class="tabs material">
+            <div class="tab_heads jcc mb10">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblCharts", "Personalization")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Content", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHeader", "Content")</a>
+
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Beneficiaries", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab on">@EServicesCms.Common.DbManager.GetText("Services", "lblBeneficiaries", "Beneficiaries")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Types", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTypes", "Types")</a>
+
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Procedures", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblProcedures", "Procedures")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Channels", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblChannels", "Channels")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Support", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblSupport", "Support")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FAQ", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblFAQ", "FAQ")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblVideos", "Videos")</a>
+                @*<a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Hints", "ServiceGuide", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblHints", "Hints")</a>*@
+            </div>
+        </div>
+        <div class="cards tac row" id="dvData">
+            @{
+                if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_ADMIN") == true)
+                {
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <a id="myBtn" class="card p30">
+                            <div class="icon add"></div>
+                            <div class="title">
+                                @EServicesCms.Common.DbManager.GetText("Services", "lblAddServiceEntity", "ADD NEW ENTITY")
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <input id="ajaxUrl" type="hidden" value="@Url.Action("AjaxGetServiceEntities", "Services")" />
+    <input id="changeSortOrderUrl" type="hidden" value="@Url.Action("ChangeSortOrder", "ServiceGuide")" />
+</article>
+
+<div id="dvForm" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h2>@EServicesCms.Common.DbManager.GetText("Services", "lblServiceEntity", "Service Entity")</h2>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-horizontal">
+
+                            <div class="form-group" style="display:none;">
+                                <label for="" class="col-sm-3 control-label smallText">Code</label>
+                                <div class="col-sm-6 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-info"></i></span>
+                                    <input type="text" class="form-control" id="Code" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblEntitiesTitleEn", "Title (EN)") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('DescriptionEng');" onblur="stripHtmlToText('DescriptionEng');" placeholder="" class="form-control" id="DescriptionEng" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblDescriptionEn", "Description (EN)") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('RemarksEng');" onblur="stripHtmlToText('RemarksEng');" placeholder="" class="form-control" id="RemarksEng" required />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblEntitiesTitleAr", "Title (AR)") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('DescriptionAlt');" onblur="stripHtmlToText('DescriptionAlt');" placeholder="" class="form-control" id="DescriptionAlt" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblDescriptionAr", "Description (Ar)") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('RemarksAlt');" onblur="stripHtmlToText('RemarksAlt');" placeholder="" class="form-control" id="RemarksAlt" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblClassName", "CssClass") <span class="mRed">*</span></label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('ClassName');" onblur="stripHtmlToText('ClassName');" placeholder="" class="form-control" id="ClassName" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" align="center">
+                        <div class="col-md-12">
+                            <button type="button" id="btnSave" class="btn btn-sm btn-warning" onclick="SaveServiceEntities();"><i class="ace-icon fa fa-save"></i> @EServicesCms.Common.DbManager.GetText("Services", "lblSave", "Save")</button>
+                            <button type="button" id="btnClose" onclick="CloseForm();" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-remove"></i> @EServicesCms.Common.DbManager.GetText("Services", "lblClose", "Close")</button>
+                            <input id="saveUrl" type="hidden" value="@Url.Action("AjaxSaveServiceEntities", "Services")" />
+                            <input id="deleteUrl" type="hidden" value="@Url.Action("AjaxDeleteServiceEntities", "Services")" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+
+    GetServiceEntites();
+    var modal = document.getElementById("dvForm");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    if (btn != null) {
+        btn.onclick = function () {
+            clearInput();
+            modal.style.display = "block";
+        }
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    @Html.Raw(ViewBag.PageAlertCodes);
+
+    function Publish() {
+
+
+        Swal.fire({
+            icon: 'question',
+            text: ShowAlert('ConfirmPublish', '1'),
+            //showCloseButton: true,
+            showCancelButton: true,
+            //focusConfirm: true,
+            confirmButtonText: ShowAlert('YesButton', '1'),
+            cancelButtonText: ShowAlert('NoButton', '1'),
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: $('#publishUrl').val(),
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: null,// JSON.stringify(iObject),
+                        success: function (response) {
+                            Swal.fire({ icon: response.Icon, text: response.Message, confirmButtonText: ShowAlert('OkButton', '1') })
+                        },
+                        error: function (jq, status, message) { console.log(status); },
+                    });
+
+            }
+        })
+
+
+    }
+
+    function PublishCards() {
+
+
+        Swal.fire({
+            icon: 'question',
+            text: ShowAlert('ConfirmPublishCards', '1'),
+            //showCloseButton: true,
+            showCancelButton: true,
+            //focusConfirm: true,
+            confirmButtonText: ShowAlert('YesButton', '1'),
+            cancelButtonText: ShowAlert('NoButton', '1'),
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: $('#publishCardsUrl').val(),
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: null,// JSON.stringify(iObject),
+                        success: function (response) {
+                            Swal.fire({ icon: response.Icon, text: response.Message, confirmButtonText: ShowAlert('OkButton', '1') })
+                        },
+                        error: function (jq, status, message) { console.log(status); },
+                    });
+
+            }
+        })
+    }
+</script>
+
+

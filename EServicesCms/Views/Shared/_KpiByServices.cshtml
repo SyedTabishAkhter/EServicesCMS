@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewBag.Title = "_DashboardInspectorPerformance";
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DrawServices('categoryContainer6Chart', 'categoryContainer6');
+        });
+
+        function DrawServices(containerId, titleContainerId) {
+
+            $("#" + containerId).html("<img src='@Url.Content("~/Content/images/PreLoad.gif")' style='display:block;margin-top:10px;'  />");
+
+            $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+             url: "@Url.Action("AjaxGetServiceGuideByServices", "Dashboard")",
+            data: JSON.stringify({
+                "yearValue": $("#ddlyear_SVC").val(),
+                "monthName": $("#dddlMonth_SVC").val()
+            }),
+            dataType: "json",
+            success: function (Result) {
+                $("#" + containerId).empty();
+                Result = Result.d;
+                console.log(Result);
+                if (Result == null || Result == "" || Result.Series == null) {
+                    $("#" + containerId).prepend("<div class='empty-state__message'>Sorry ! No records has been added yet.</div>");
+                    return
+                }
+                DrawServicesOptions(Result, containerId, titleContainerId);
+            },
+            error: function (Result) {
+                alert("Error");
+            }
+        });
+        }
+
+        function DrawServicesOptions(data, containerId, titleContainerId)
+        {
+            Highcharts.setOptions({
+                lang: {
+                    thousandsSep: ""
+                }
+            });
+
+            $("#" + titleContainerId).prepend("<div id='" + containerId + "-" + titleContainerId + "' class='dashboardTitle'>" + data.Title + "</div>");
+
+            $('#' + containerId).highcharts({
+                chart: {
+                    type: 'bar'
+                    , style: {
+                        fontFamily: 'Droid Arabic Kufi'
+                    }
+
+                },
+                credits: {
+                    enabled: false
+                },
+                colors: ['#dff0d8', '#fcf8e3', '#d9edf7', '#428bca'],
+                title: {
+                    text: null
+                },
+                subtitle: {
+                    text: data.SubTitle
+                },
+                xAxis: {
+                    //categories:data.XAxisCategories
+                },
+                yAxis: {
+                    min: 0,
+                    title: { text: data.YAxisTitle, aligh: 'high' },
+                    labels: { overflow: 'jsutify' },
+                    stackLabels: {
+                        enabled: false,
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: '9px',
+                            fontFamily: 'Verdana, sans-serif',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                tooltip: { useHTML: true, valueSuffix: data.YAxisTooltipValueSuffix },
+                plotOptions: {
+                    column: {
+                        //allowPointSelect: true,
+                        //colorByPoint: true,
+                        //cursor: 'pointer',
+                        //showInLegend: true,
+                        //size: '75%',
+                        //center: ['30%', '50%'],
+                        //stacking: 'normal',
+                        series: {
+                            color: '#FF0000'
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            rotation: -90,
+                            y: -20,
+                            style: {
+                                fontSize: '9px',
+                                fontFamily: 'Verdana, sans-serif',
+                                fontWeight: 'bold',
+                            }
+                            //format: '<b>{point.y}</b>'
+                        },
+                        point: {
+                            events: {
+                                click: function () {
+                                    alert('Category: ' + this.YAxisTitle + ', value: ' + this.y);
+                                }
+                                //, legendItemClick: function () {
+                                //    //alert('Category: ' + this.x + ', value: ' + this.y);
+                                //    return false;
+                                //}
+                            }
+                        },
+                    },
+                    series: {
+                        events: {
+                            legendItemClick: function (event) {
+                                return false;
+                            }
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: '9px',
+                                fontFamily: 'Verdana, sans-serif',
+                                fontWeight: 'bold',
+                            }
+                        },
+                        cursor: 'pointer',
+                        minPointLength: 3
+                    }
+                },
+                legend: {
+                    align: 'right',
+                    verticalAlign: 'top',
+                    layout: 'vertical',
+                    x: -8,
+                    y: 2,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#ffffff'),
+                    shadow:true,
+                    itemStyle: {
+                        fontWeight: 'normal',
+                        font: '7pt Droid Arabic Kufi'
+                    },
+                    itemclick: function (e) {
+                        console.log("legend click: " + e.dataPointIndex);
+                        console.log(e);
+                        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                            e.dataSeries.visible = false;
+                        } else {
+                            e.dataSeries.visible = true;
+                        }
+
+                        e.chart.render();
+                    }
+                },
+                series: data.Series
+            });
+        }
+    </script>
+}
+@*<hr />*@
+
+<div id="categoryContainer6">
+    <div style="position: relative;right: 1em; top: 0em;text-align:right;">
+        @*<img src="@Url.Content("~/Content/images/enlarg_icn.png")" style="cursor:pointer;height:30px;" onclick="maximizeRatings();" />
+            &nbsp;|&nbsp;*@
+        <select style="width:100px;" name="ddlyear_SVC" id="ddlyear_SVC" onchange="DrawServices('categoryContainer6Chart');">
+            @{
+                for (int iYear = 2023; iYear <= DateTime.Now.Year + 1; iYear++)
+                {
+                    if (iYear == DateTime.Now.Year)
+                    {
+                        <option value="@iYear" selected>&nbsp;@iYear</option>
+                    }
+                    else
+                    {
+                        <option value="@iYear">&nbsp;@iYear</option>
+                    }
+                }
+            }
+        </select>
+        <select style="width:100px;" name="dddlMonth_SVC" id="dddlMonth_SVC" onchange="DrawServices('categoryContainer6Chart');">
+            <option value="">-Month-</option>
+            @{
+                for (int i = 0; i < 12; i++)
+                {
+                    @*if ((i + 1) == DateTime.Now.Month)
+                        {
+                            <option value="@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]" selected>&nbsp;@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]</option>
+                        }
+                        else*@
+                    {
+                        <option value="@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]">&nbsp;@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <div id="categoryContainer6Chart"></div>
+    <div id="categoryContainer6Title">
+        <div id="categoryContainer6Popup"></div>
+    </div>
+</div>
+
+
+
+
+
+

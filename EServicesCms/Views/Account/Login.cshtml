@@ -1,0 +1,87 @@
+﻿@using EServicesCms.Models
+@{ Layout = null; }
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@EServicesCms.Common.DbManager.GetText("Login", "lblLoginTitle", "EServices CMS Login")</title>
+    <link rel="shortcut icon" href="~/Content/assets/images/fav.png">
+    <link rel="stylesheet" href="~/Content/assets/styles/reset.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/assets/styles/art.min.css">
+    <link rel="stylesheet" href="~/Content/assets/styles/login.css">
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/Login.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.toaster.js"></script>
+</head>
+<body onload="noBack()" dir="@(EServicesCms.Common.Helper.CurrentLanguage() == (int)EServicesCms.Common.Language.English ? "ltr" : "rtl" )">
+        <article>
+            <div class="fixed_center">
+                <div id="access">
+                    <div style="height:20px;">
+                        @{
+                            if (EServicesCms.Common.Helper.CurrentLanguage() == (int)EServicesCms.Common.Language.English)
+                            {
+                                <img src="@Url.Content("~/Content/0.gif")" style="cursor: pointer; float:right;z-index:1000;" onclick="ChangeLanguage();" />
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/Content/1.gif")" style="cursor: pointer; float: left; z-index: 1000;" onclick="ChangeLanguage();" />
+                            }
+                        }
+                    </div>
+
+                    <a href="#" id="logo" style="background-image:url('@Url.Content("~/Content/assets/images/logo.svg")')"><span>@EServicesCms.Common.DbManager.GetText("Login", "lblLoginSubTitle", "E-Services Portal CMS")</span></a>
+                    <div id="dvMessage" class="lblMessage"></div>
+                    <div class="login_wrap">
+                        <div class="inputs">
+                            <label for="login_name">@EServicesCms.Common.DbManager.GetText("Login", "lblUserNameOrEmail", "Username or Email")</label>
+                            <input type="text" onkeypress="stripHtmlToText('UserName');" onblur="stripHtmlToText('UserName');" autocapitalize="none" id="UserName" name="UserName" placeholder="@EServicesCms.Common.DbManager.GetText("Login", "lblUserNameOrEmail", "Username or Email")">
+                            <label for="login_pass">@EServicesCms.Common.DbManager.GetText("Login", "lblPassword", "Password")</label>
+                            <input type="password" autocapitalize="none" id="Password" name="Password" placeholder="@EServicesCms.Common.DbManager.GetText("Login", "lblPassword", "Password")">
+                            <div class="remember">
+                                <input type="checkbox" id="RememberMe" name="RememberMe">
+                                <label for="remember_me">@EServicesCms.Common.DbManager.GetText("Login", "lblRememberMe", "Remember Me")</label>
+                            </div>
+                        </div>
+                        <button class="main" id="login_init" onclick="ContinueToLogin();">@EServicesCms.Common.DbManager.GetText("Login", "lblLogin", "Login")</button>
+                        @*<a href="forgot.html" class="more">Forgot Password?</a>*@
+                    </div>
+                </div>
+            </div>
+        </article>
+        <div class="notices t r"></div>
+        <script type="text/javascript">
+        var loginUrl = "@Url.Action("AjaxLogin", "Account")";
+        var langUrl = "@Url.Action("ChangeLanguage", "Account")";
+        var redirectUrl = "@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) + "?id=1")"
+        redirectUrl = redirectUrl.replace(/&amp;/g, '&');
+        var forgotUrl = "@Url.Action("AjaxForgotPassword", "Account")";
+
+        @Html.Raw(ViewBag.PageAlertCodes);
+
+        $(document).ready(function () {
+
+           /* $("#dvMessage").hide();*/
+
+            //alert(navigator.userAgent);
+
+            window.history.forward();
+            var remember = $.cookie('eservicesremember');
+            console.log(remember);
+            if (remember == 'true') {
+                var username = $.cookie('eservicesusername');
+                var password = $.cookie('eservicespassword');
+                $('#UserName').attr("value", username);
+                $('#Password').attr("value", password);
+                $("#RememberMe").attr("checked", "true");
+            }
+        });
+        </script>
+</body>
+</html>

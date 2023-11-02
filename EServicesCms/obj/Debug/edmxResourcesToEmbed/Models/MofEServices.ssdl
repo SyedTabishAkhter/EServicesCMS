@@ -1,0 +1,2916 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MofEservicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AItemDetails">
+    <Key>
+      <PropertyRef Name="AItemId" />
+    </Key>
+    <Property Name="AItemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="serviceId" Type="varchar" MaxLength="50" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AItems">
+    <Key>
+      <PropertyRef Name="AItemsId" />
+    </Key>
+    <Property Name="AItemsId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="API_Sources">
+    <Key>
+      <PropertyRef Name="ApiSourceId" />
+    </Key>
+    <Property Name="ApiSourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApiSourceName" Type="varchar" MaxLength="50" />
+    <Property Name="ApiAccessURL" Type="varchar" MaxLength="1000" />
+    <Property Name="ApiKey" Type="varchar" MaxLength="100" />
+    <Property Name="ApiUsername" Type="varchar" MaxLength="50" />
+    <Property Name="ApiPassword" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Attachments">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestUniqueId" Type="bigint" />
+    <Property Name="FileName" Type="varchar" MaxLength="50" />
+    <Property Name="FileType" Type="varchar" MaxLength="50" />
+    <Property Name="FileSize" Type="int" />
+    <Property Name="FileUrl" Type="varchar" MaxLength="200" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Captcha">
+    <Key>
+      <PropertyRef Name="CaptchaId" />
+    </Key>
+    <Property Name="CaptchaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CaptchaKey" Type="varchar" MaxLength="500" />
+    <Property Name="CaptchText" Type="varchar" MaxLength="10" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="DepartmentId" />
+    </Key>
+    <Property Name="DepartmentId" Type="smallint" Nullable="false" />
+    <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="DepartmentNameAlt" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="EmailNotifications">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestUniqueId" Type="bigint" />
+    <Property Name="EmailFrom" Type="varchar" MaxLength="50" />
+    <Property Name="EmailTo" Type="varchar" MaxLength="50" />
+    <Property Name="Subject" Type="varchar" MaxLength="500" />
+    <Property Name="Body" Type="nvarchar" MaxLength="4000" />
+    <Property Name="StatusId" Type="smallint" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="2000" />
+    <Property Name="AttachmentPath" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HitCounters">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SLID" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="Logger">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicationName" Type="varchar" MaxLength="200" />
+    <Property Name="VersionNo" Type="varchar" MaxLength="50" />
+    <Property Name="Message" Type="varchar" MaxLength="4000" />
+    <Property Name="ClassName" Type="varchar" MaxLength="50" />
+    <Property Name="InnerException" Type="varchar" MaxLength="2000" />
+    <Property Name="StackTraceString" Type="varchar" MaxLength="2000" />
+    <Property Name="RemoteStackIndex" Type="int" />
+    <Property Name="ExceptionMethod" Type="varchar" MaxLength="50" />
+    <Property Name="HResult" Type="int" />
+    <Property Name="Source" Type="varchar" MaxLength="50" />
+    <Property Name="HelpURL" Type="varchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LoginAudit">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="LastLogin" Type="datetime2" Precision="7" />
+    <Property Name="Device" Type="varchar" MaxLength="10" />
+    <Property Name="DeviceId" Type="varchar" MaxLength="50" />
+    <Property Name="Latitude" Type="numeric" Precision="18" Scale="6" />
+    <Property Name="Longitude" Type="numeric" Precision="18" Scale="6" />
+    <Property Name="Country" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LookupOptions">
+    <Key>
+      <PropertyRef Name="OptionId" />
+    </Key>
+    <Property Name="OptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LookupId" Type="int" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="200" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="200" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LookupOptions_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OptionId" Type="int" Nullable="false" />
+    <Property Name="LookupId" Type="int" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="200" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="200" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="NoActionUserActivities">
+    <Key>
+      <PropertyRef Name="ActivityId" />
+    </Key>
+    <Property Name="ActivityId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferenceNo" Type="varchar" MaxLength="50" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+    <Property Name="Question" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Answer" Type="nvarchar" MaxLength="4000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NoActionUsers">
+    <Key>
+      <PropertyRef Name="ActionId" />
+    </Key>
+    <Property Name="ActionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferenceNo" Type="varchar" MaxLength="50" />
+    <Property Name="ExternalServiceId" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="UserType" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RequestAndEnquiriesDetails">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestUniqueId" Type="bigint" />
+    <Property Name="RequestDetails" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RequestAndEnquiriesDetailsLog">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UniqueId" Type="bigint" />
+    <Property Name="RequestUniqueId" Type="bigint" />
+    <Property Name="RequestDetails" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RequestRedirection">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CaseId" Type="varchar" MaxLength="50" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RequestsAndEnquiries">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestId" Type="varchar" MaxLength="50" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="PreviousRequestId" Type="varchar" MaxLength="50" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RequestsAndEnquiriesLog">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UniqueId" Type="bigint" />
+    <Property Name="RequestId" Type="varchar" MaxLength="50" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="PreviousRequestId" Type="varchar" MaxLength="50" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RoleGroups">
+    <Key>
+      <PropertyRef Name="GroupRoleId" />
+    </Key>
+    <Property Name="GroupRoleId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="smallint" />
+    <Property Name="GroupId" Type="smallint" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceAudience">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceCardEntities">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="1000" />
+    <Property Name="DescriptionAlt" Type="varchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+    <Property Name="SortOrder" Type="int" />
+  </EntityType>
+  <EntityType Name="ServiceCategories">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="ParentCategoryId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="PrintPreview" Type="bit" />
+    <Property Name="CategoryCode" Type="varchar" MaxLength="50" />
+    <Property Name="PrintMessage" Type="nvarchar" MaxLength="500" />
+    <Property Name="PrintMessageAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="TabularLayout" Type="bit" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceCategories_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="ParentCategoryId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="PrintPreview" Type="bit" />
+    <Property Name="CategoryCode" Type="varchar" MaxLength="50" />
+    <Property Name="PrintMessage" Type="nvarchar" MaxLength="500" />
+    <Property Name="PrintMessageAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="TabularLayout" Type="bit" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceChannels">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceCommentsAttachmentsConfig">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="Minimum" Type="int" />
+    <Property Name="Maximum" Type="int" />
+    <Property Name="MaxSize" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceCommentsAttachmentsConfig_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecordId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="Minimum" Type="int" />
+    <Property Name="Maximum" Type="int" />
+    <Property Name="MaxSize" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceConditions">
+    <Key>
+      <PropertyRef Name="ConditionId" />
+    </Key>
+    <Property Name="ConditionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceContact">
+    <Key>
+      <PropertyRef Name="ContactId" />
+    </Key>
+    <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="PhoneNo" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceDepartments">
+    <Key>
+      <PropertyRef Name="DepartmentId" />
+    </Key>
+    <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceDocuments">
+    <Key>
+      <PropertyRef Name="DocId" />
+    </Key>
+    <Property Name="DocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceDuration">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceEntities">
+    <Key>
+      <PropertyRef Name="EntityId" />
+    </Key>
+    <Property Name="EntityId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="RemarksEng" Type="varchar" MaxLength="1000" />
+    <Property Name="RemarksAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ClassName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceEntitiesMapping">
+    <Key>
+      <PropertyRef Name="ConfigId" />
+    </Key>
+    <Property Name="ConfigId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="EntityId" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceFaqs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionEng" Type="nvarchar" MaxLength="1000" />
+    <Property Name="QuestionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="AnswerEng" Type="nvarchar" MaxLength="4000" />
+    <Property Name="AnswerAlt" Type="nvarchar" MaxLength="4000" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceFees">
+    <Key>
+      <PropertyRef Name="FeeId" />
+    </Key>
+    <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="ActualFees" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceAmount" Type="varchar" MaxLength="50" />
+    <Property Name="Vat" Type="varchar" MaxLength="50" />
+    <Property Name="Total" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceFormsConfig">
+    <Key>
+      <PropertyRef Name="InputId" />
+    </Key>
+    <Property Name="InputId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategorId" Type="int" />
+    <Property Name="LanguageId" Type="int" />
+    <Property Name="InputTypeId" Type="int" />
+    <Property Name="ID" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Label" Type="nvarchar" MaxLength="500" />
+    <Property Name="Placeholder" Type="nvarchar" MaxLength="500" />
+    <Property Name="Required" Type="bit" />
+    <Property Name="OptionId" Type="int" />
+    <Property Name="Attributes" Type="varchar" MaxLength="200" />
+    <Property Name="Message" Type="nvarchar" MaxLength="500" />
+    <Property Name="Maximum" Type="int" />
+    <Property Name="Minimum" Type="int" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="LabelAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="PlaceholderAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="AttributesAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="MessageAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="UserField" Type="varchar" MaxLength="50" />
+    <Property Name="IsExternalLookup" Type="bit" />
+    <Property Name="ExternalLookupId" Type="varchar" MaxLength="50" />
+    <Property Name="MaxFileSize" Type="int" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ArabicInput" Type="int" />
+    <Property Name="EnglishInput" Type="int" />
+    <Property Name="DynamicInput" Type="int" />
+    <Property Name="HasDrilldown" Type="bit" />
+    <Property Name="ValidationMessage" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ValidationMessageAr" Type="nvarchar" MaxLength="2000" />
+    <Property Name="HelpMessage" Type="nvarchar" MaxLength="2000" />
+    <Property Name="HelpMessageAr" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DownloadAttachment" Type="bit" />
+    <Property Name="IsReadOnly" Type="bit" />
+    <Property Name="TabId" Type="int" />
+    <Property Name="FilterId" Type="varchar" MaxLength="50" />
+    <Property Name="FilterValue" Type="nvarchar" MaxLength="100" />
+    <Property Name="JsonAttribute" Type="varchar" MaxLength="50" />
+    <Property Name="ApplyWordCount" Type="bit" />
+    <Property Name="Bookmark" Type="varchar" MaxLength="50" />
+    <Property Name="SpeechToText" Type="bit" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceFormsConfig_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InputId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategorId" Type="int" />
+    <Property Name="LanguageId" Type="int" />
+    <Property Name="InputTypeId" Type="int" />
+    <Property Name="ID" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Label" Type="nvarchar" MaxLength="500" />
+    <Property Name="Placeholder" Type="nvarchar" MaxLength="500" />
+    <Property Name="Required" Type="bit" />
+    <Property Name="OptionId" Type="int" />
+    <Property Name="Attributes" Type="varchar" MaxLength="200" />
+    <Property Name="Message" Type="nvarchar" MaxLength="500" />
+    <Property Name="Maximum" Type="int" />
+    <Property Name="Minimum" Type="int" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="LabelAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="PlaceholderAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="AttributesAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="MessageAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="UserField" Type="varchar" MaxLength="50" />
+    <Property Name="IsExternalLookup" Type="bit" />
+    <Property Name="ExternalLookupId" Type="varchar" MaxLength="50" />
+    <Property Name="MaxFileSize" Type="int" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ArabicInput" Type="int" />
+    <Property Name="EnglishInput" Type="int" />
+    <Property Name="DynamicInput" Type="int" />
+    <Property Name="HasDrilldown" Type="bit" />
+    <Property Name="ValidationMessage" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ValidationMessageAr" Type="nvarchar" MaxLength="2000" />
+    <Property Name="HelpMessage" Type="nvarchar" MaxLength="2000" />
+    <Property Name="HelpMessageAr" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DownloadAttachment" Type="bit" />
+    <Property Name="IsReadOnly" Type="bit" />
+    <Property Name="TabId" Type="int" />
+    <Property Name="FilterId" Type="varchar" MaxLength="50" />
+    <Property Name="FilterValue" Type="nvarchar" MaxLength="100" />
+    <Property Name="JsonAttribute" Type="varchar" MaxLength="50" />
+    <Property Name="ApplyWordCount" Type="bit" />
+    <Property Name="Bookmark" Type="varchar" MaxLength="50" />
+    <Property Name="SpeechToText" Type="bit" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceFormsDrilldownConfig">
+    <Key>
+      <PropertyRef Name="DrilldownId" />
+    </Key>
+    <Property Name="DrilldownId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InputId" Type="int" />
+    <Property Name="ReferralId" Type="varchar" MaxLength="50" />
+    <Property Name="LogicalOperator" Type="varchar" MaxLength="50" />
+    <Property Name="ReferralIdValue" Type="varchar" MaxLength="500" />
+    <Property Name="AlertMessage" Type="nvarchar" MaxLength="2000" />
+    <Property Name="AlertMessageAr" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceFormsDrilldownConfig_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DrilldownId" Type="int" Nullable="false" />
+    <Property Name="InputId" Type="int" />
+    <Property Name="ReferralId" Type="varchar" MaxLength="50" />
+    <Property Name="LogicalOperator" Type="varchar" MaxLength="50" />
+    <Property Name="ReferralIdValue" Type="varchar" MaxLength="500" />
+    <Property Name="AlertMessage" Type="nvarchar" MaxLength="2000" />
+    <Property Name="AlertMessageAr" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuide">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TitleEng" Type="varchar" MaxLength="200" />
+    <Property Name="TitleAlt" Type="nvarchar" MaxLength="400" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideChannels">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="TitleEng" Type="varchar" MaxLength="200" />
+    <Property Name="TitleAlt" Type="nvarchar" MaxLength="400" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="QRCode" Type="varchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+    <Property Name="ClassName" Type="varchar" MaxLength="50" />
+    <Property Name="QRCodeAlt" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ServiceGuideFaqs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionEng" Type="varchar" MaxLength="500" />
+    <Property Name="QuestionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="AnswerEng" Type="varchar" MaxLength="4000" />
+    <Property Name="AnswerAlt" Type="nvarchar" MaxLength="4000" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideHintActions">
+    <Key>
+      <PropertyRef Name="ActionId" />
+    </Key>
+    <Property Name="ActionId" Type="int" Nullable="false" />
+    <Property Name="HintId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="ActionUrl" Type="varchar" MaxLength="500" />
+    <Property Name="ActionUrlAlt" Type="varchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideHints">
+    <Key>
+      <PropertyRef Name="HintId" />
+    </Key>
+    <Property Name="HintId" Type="int" Nullable="false" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="HeaderEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="HeaderAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideProcedures">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TitleEng" Type="varchar" MaxLength="200" />
+    <Property Name="TitleAlt" Type="nvarchar" MaxLength="400" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ServiceGuideRatings">
+    <Key>
+      <PropertyRef Name="RatingId" />
+    </Key>
+    <Property Name="RatingId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rate" Type="int" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideSupport">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="TitleEng" Type="varchar" MaxLength="200" />
+    <Property Name="TitleAlt" Type="nvarchar" MaxLength="400" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ClassName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideSurveyQueries">
+    <Key>
+      <PropertyRef Name="QID" />
+    </Key>
+    <Property Name="QID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionEng" Type="varchar" MaxLength="500" />
+    <Property Name="QuestionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideSurveyQueryOptions">
+    <Key>
+      <PropertyRef Name="OptionId" />
+    </Key>
+    <Property Name="OptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="AnswerEng" Type="varchar" MaxLength="500" />
+    <Property Name="AnswerAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideSurveyResponses">
+    <Key>
+      <PropertyRef Name="ResponseId" />
+    </Key>
+    <Property Name="ResponseId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="QuestionId" Type="int" />
+    <Property Name="OptonId" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceGuideVideos">
+    <Key>
+      <PropertyRef Name="VideoId" />
+    </Key>
+    <Property Name="VideoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="TitleEng" Type="varchar" MaxLength="200" />
+    <Property Name="TitleAlt" Type="nvarchar" MaxLength="400" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceInputLookupActions">
+    <Key>
+      <PropertyRef Name="OptionId" />
+    </Key>
+    <Property Name="OptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InputId" Type="int" Nullable="false" />
+    <Property Name="LookupId" Type="int" Nullable="false" />
+    <Property Name="LookupValue" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ActionId" Type="int" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceInputLookupActions_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OptionId" Type="int" Nullable="false" />
+    <Property Name="InputId" Type="int" Nullable="false" />
+    <Property Name="LookupId" Type="int" Nullable="false" />
+    <Property Name="LookupValue" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ActionId" Type="int" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceInputTooltips">
+    <Key>
+      <PropertyRef Name="TooltipId" />
+    </Key>
+    <Property Name="TooltipId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InputId" Type="int" Nullable="false" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="2000" />
+    <Property Name="EnableGuide" Type="bit" />
+    <Property Name="EnableCard" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceInputTooltips_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TooltipId" Type="int" Nullable="false" />
+    <Property Name="InputId" Type="int" Nullable="false" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="2000" />
+    <Property Name="EnableGuide" Type="bit" />
+    <Property Name="EnableCard" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceLocations">
+    <Key>
+      <PropertyRef Name="LocationId" />
+    </Key>
+    <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceProcedures">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceRatings">
+    <Key>
+      <PropertyRef Name="RatingId" />
+    </Key>
+    <Property Name="RatingId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rate" Type="int" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceRequirements">
+    <Key>
+      <PropertyRef Name="ReqId" />
+    </Key>
+    <Property Name="ReqId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="TitleEng" Type="nvarchar" MaxLength="2000" />
+    <Property Name="TitleAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceResponsibleOfficer">
+    <Key>
+      <PropertyRef Name="ContactId" />
+    </Key>
+    <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="NameEng" Type="varchar" MaxLength="500" />
+    <Property Name="NameAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="PhoneNo" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Services">
+    <Key>
+      <PropertyRef Name="ServiceId" />
+    </Key>
+    <Property Name="ServiceId" Type="int" Nullable="false" />
+    <Property Name="ParentServiceId" Type="int" />
+    <Property Name="EntityId" Type="int" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="ExternalServiceID" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="ServiceUrl" Type="varchar" MaxLength="2000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="DefinitionEng" Type="nvarchar" MaxLength="4000" />
+    <Property Name="DefinitionAlt" Type="nvarchar" MaxLength="4000" />
+    <Property Name="DurationEng" Type="nvarchar" MaxLength="500" />
+    <Property Name="DurationAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="FeesEng" Type="nvarchar" MaxLength="100" />
+    <Property Name="FeesAlt" Type="nvarchar" MaxLength="100" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="UseParentExternalServiceId" Type="bit" />
+    <Property Name="ParentExternalServiceID" Type="varchar" MaxLength="50" />
+    <Property Name="PrintPreview" Type="bit" />
+    <Property Name="soWidgetCode" Type="varchar" MaxLength="50" />
+    <Property Name="TabularLayout" Type="bit" />
+    <Property Name="IsAnonymous" Type="bit" />
+    <Property Name="ApiSourceId" Type="int" />
+    <Property Name="PrintMessage" Type="nvarchar" MaxLength="500" />
+    <Property Name="PrintMessageAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="DepartmentId" Type="int" />
+    <Property Name="IsRequisition" Type="bit" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="NameEng" Type="varchar" MaxLength="1000" />
+    <Property Name="NameAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="CardUrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="CardUrlAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="FormUrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="FormUrlAlt" Type="nvarchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="Services_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" Nullable="false" />
+    <Property Name="ParentServiceId" Type="int" />
+    <Property Name="EntityId" Type="int" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="ExternalServiceID" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="ServiceUrl" Type="varchar" MaxLength="2000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="DefinitionEng" Type="nvarchar" MaxLength="4000" />
+    <Property Name="DefinitionAlt" Type="nvarchar" MaxLength="4000" />
+    <Property Name="DurationEng" Type="nvarchar" MaxLength="500" />
+    <Property Name="DurationAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="FeesEng" Type="nvarchar" MaxLength="100" />
+    <Property Name="FeesAlt" Type="nvarchar" MaxLength="100" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="UseParentExternalServiceId" Type="bit" />
+    <Property Name="ParentExternalServiceID" Type="varchar" MaxLength="50" />
+    <Property Name="PrintPreview" Type="bit" />
+    <Property Name="soWidgetCode" Type="varchar" MaxLength="50" />
+    <Property Name="TabularLayout" Type="bit" />
+    <Property Name="IsAnonymous" Type="bit" />
+    <Property Name="ApiSourceId" Type="int" />
+    <Property Name="PrintMessage" Type="nvarchar" MaxLength="500" />
+    <Property Name="PrintMessageAr" Type="nvarchar" MaxLength="500" />
+    <Property Name="DepartmentId" Type="int" />
+    <Property Name="IsRequisition" Type="bit" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="NameEng" Type="varchar" MaxLength="1000" />
+    <Property Name="NameAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="CardUrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="CardUrlAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="FormUrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="FormUrlAlt" Type="nvarchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="ServiceTabs">
+    <Key>
+      <PropertyRef Name="TabId" />
+    </Key>
+    <Property Name="TabId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceTabs_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TabId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceTemplates">
+    <Key>
+      <PropertyRef Name="TemplateId" />
+    </Key>
+    <Property Name="TemplateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="500" />
+    <Property Name="FileUrl" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="InputId" Type="int" />
+    <Property Name="FileUrlAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceTemplates_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TemplateId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="FileUrl" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="InputId" Type="int" />
+    <Property Name="FileUrlAlt" Type="nvarchar" MaxLength="2000" />
+    <Property Name="InputControlId" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceTemplatesData">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TemplateId" Type="int" />
+    <Property Name="Language" Type="varchar" MaxLength="10" />
+    <Property Name="FileName" Type="varchar" MaxLength="200" />
+    <Property Name="FileType" Type="varchar" MaxLength="200" />
+    <Property Name="FileSize" Type="varchar" MaxLength="50" />
+    <Property Name="FileData" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceTypes">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="ParentTypeId" Type="int" />
+  </EntityType>
+  <EntityType Name="ServiceUserTypes">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="UserTypeId" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceVideos">
+    <Key>
+      <PropertyRef Name="VideoId" />
+    </Key>
+    <Property Name="VideoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="500" />
+    <Property Name="NameAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="VideoUrl" Type="nvarchar" MaxLength="2000" />
+    <Property Name="VideoAltUrl" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="thumbnailPicture" Type="nvarchar" MaxLength="2000" />
+    <Property Name="typeOfVideo" Type="nvarchar" MaxLength="200" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+    <Property Name="typeOfVideoAlt" Type="nvarchar" MaxLength="200" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceVideos_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VideoId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="500" />
+    <Property Name="NameAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="VideoUrl" Type="nvarchar" MaxLength="2000" />
+    <Property Name="VideoAltUrl" Type="nvarchar" MaxLength="2000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="thumbnailPicture" Type="nvarchar" MaxLength="2000" />
+    <Property Name="typeOfVideo" Type="nvarchar" MaxLength="200" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryGuid" Type="varchar" MaxLength="50" />
+    <Property Name="typeOfVideoAlt" Type="nvarchar" MaxLength="200" />
+    <Property Name="Lingo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServiceViewers">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="500" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ServiceViewers_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecordId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="500" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ServiceGuid" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TokenClientKey">
+    <Key>
+      <PropertyRef Name="ClientKeyID" />
+    </Key>
+    <Property Name="ClientKeyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyID" Type="int" />
+    <Property Name="ClientID" Type="varchar" MaxLength="100" />
+    <Property Name="ClientSecret" Type="varchar" MaxLength="100" />
+    <Property Name="CreateOn" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="TokenCompany">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="PersonInCharge" Type="varchar" MaxLength="100" />
+    <Property Name="CreateOn" Type="datetime" />
+    <Property Name="EmailID" Type="varchar" MaxLength="100" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="TokenManager">
+    <Key>
+      <PropertyRef Name="TokenID" />
+    </Key>
+    <Property Name="TokenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TokenKey" Type="varchar" MaxLength="2000" />
+    <Property Name="IssuedOn" Type="datetime" />
+    <Property Name="ExpiresOn" Type="datetime" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CompanyID" Type="int" />
+    <Property Name="UserID" Type="int" />
+  </EntityType>
+  <EntityType Name="TokenUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailID" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateOn" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="UserActivityLogging">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="LogType" Type="nvarchar" MaxLength="200" />
+    <Property Name="Keyword" Type="nvarchar" MaxLength="200" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="UserAgent" Type="varchar" MaxLength="500" />
+    <Property Name="UserDefined01" Type="nvarchar" MaxLength="200" />
+    <Property Name="UserDefined02" Type="nvarchar" MaxLength="200" />
+    <Property Name="UserDefined03" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="UserType" Type="varchar" MaxLength="50" />
+    <Property Name="LoginType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserAuthDetails">
+    <Key>
+      <PropertyRef Name="AuthId" />
+    </Key>
+    <Property Name="AuthId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="100" />
+    <Property Name="useremail" Type="varchar" MaxLength="100" />
+    <Property Name="userdisplayname" Type="nvarchar" MaxLength="500" />
+    <Property Name="mobile" Type="varchar" MaxLength="50" />
+    <Property Name="token" Type="nvarchar" MaxLength="4000" />
+    <Property Name="jwtoken" Type="nvarchar" MaxLength="4000" />
+    <Property Name="responseToId" Type="varchar" MaxLength="50" />
+    <Property Name="samlResponse" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="tokenExpiry" Type="datetime2" Precision="7" />
+    <Property Name="nameId" Type="varchar" MaxLength="50" />
+    <Property Name="userType" Type="varchar" MaxLength="50" />
+    <Property Name="loginType" Type="varchar" MaxLength="50" />
+    <Property Name="nationality" Type="nvarchar" MaxLength="200" />
+    <Property Name="userAttributes" Type="nvarchar" MaxLength="4000" />
+  </EntityType>
+  <EntityType Name="UserFavouriteServices">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="smallint" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="SecurityQuestionId" Type="smallint" />
+    <Property Name="SecurityAnswer" Type="varchar" MaxLength="50" />
+    <Property Name="IsFirstLogin" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="DepartmentId" Type="smallint" />
+    <Property Name="FullNameAlt" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="UserScreenActions">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActionId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="UniqueId" Type="varchar" MaxLength="50" />
+    <Property Name="Remarks" Type="varchar" MaxLength="4000" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="VersionHistory">
+    <Key>
+      <PropertyRef Name="VersionId" />
+    </Key>
+    <Property Name="VersionId" Type="int" Nullable="false" />
+    <Property Name="VersionNo" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkActions">
+    <Key>
+      <PropertyRef Name="ActionId" />
+    </Key>
+    <Property Name="ActionId" Type="int" Nullable="false" />
+    <Property Name="ActionName" Type="varchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkCountry">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="50" />
+    <Property Name="CountryCode" Type="varchar" MaxLength="5" />
+    <Property Name="PhoneCode" Type="varchar" MaxLength="5" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkEmirates">
+    <Key>
+      <PropertyRef Name="EmirateId" />
+    </Key>
+    <Property Name="EmirateId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkGroups">
+    <Key>
+      <PropertyRef Name="GroupId" />
+    </Key>
+    <Property Name="GroupId" Type="smallint" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+    <Property Name="GroupName" Type="varchar" MaxLength="50" />
+    <Property Name="ScreenId" Type="smallint" />
+    <Property Name="SortOrder" Type="smallint" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="LkInputLanguages">
+    <Key>
+      <PropertyRef Name="InputId" />
+    </Key>
+    <Property Name="InputId" Type="int" Nullable="false" />
+    <Property Name="Language" Type="varchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkInputTypes">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" Nullable="false" />
+    <Property Name="TypeName" Type="varchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="ShortDescriptionEng" Type="varchar" MaxLength="100" />
+    <Property Name="ShortDescriptoinAlt" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="LkInquiryTypes">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkLogicalOperators">
+    <Key>
+      <PropertyRef Name="OeratorId" />
+    </Key>
+    <Property Name="OeratorId" Type="int" Nullable="false" />
+    <Property Name="LogicalOperator" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkLookups">
+    <Key>
+      <PropertyRef Name="LookupId" />
+    </Key>
+    <Property Name="LookupId" Type="int" Nullable="false" />
+    <Property Name="LookUpName" Type="varchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="LkLookups_Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LookupId" Type="int" Nullable="false" />
+    <Property Name="LookUpName" Type="varchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="LkMenu">
+    <Key>
+      <PropertyRef Name="MenuId" />
+    </Key>
+    <Property Name="MenuId" Type="int" Nullable="false" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="SubMenuId" Type="int" />
+    <Property Name="TitleEng" Type="varchar" MaxLength="200" />
+    <Property Name="TitleAlt" Type="nvarchar" MaxLength="400" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="200" />
+    <Property Name="DescriptionAlt" Type="varchar" MaxLength="50" />
+    <Property Name="UrlEng" Type="varchar" MaxLength="1000" />
+    <Property Name="UrlAlt" Type="varchar" MaxLength="1000" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="UserDefined01" Type="int" />
+  </EntityType>
+  <EntityType Name="LkPersonTypes">
+    <Key>
+      <PropertyRef Name="PersonTypeId" />
+    </Key>
+    <Property Name="PersonTypeId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkRequestStatus">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkRoles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="smallint" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="LkScreenLabels">
+    <Key>
+      <PropertyRef Name="AbbrId" />
+    </Key>
+    <Property Name="AbbrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ViewId" Type="varchar" MaxLength="50" />
+    <Property Name="LabelId" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="1000" />
+    <Property Name="PlaceholderId" Type="varchar" MaxLength="50" />
+    <Property Name="PhDescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="PhDescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="RowInsertedBy" Type="varchar" MaxLength="50" />
+    <Property Name="RowUpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LkScreens">
+    <Key>
+      <PropertyRef Name="ScreenId" />
+    </Key>
+    <Property Name="ScreenId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParentScreenId" Type="int" />
+    <Property Name="ScreenName" Type="varchar" MaxLength="50" />
+    <Property Name="ScreenNameAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="GroupName" Type="varchar" MaxLength="50" />
+    <Property Name="ControllerName" Type="varchar" MaxLength="50" />
+    <Property Name="ActionName" Type="varchar" MaxLength="50" />
+    <Property Name="RedirectUrl" Type="varchar" MaxLength="200" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkScreenValidationMessages">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScreenId" Type="varchar" MaxLength="50" />
+    <Property Name="ErrorCode" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="500" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkServiceGuideHintTypes">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="LkUserAttributesSSO">
+    <Key>
+      <PropertyRef Name="AttributeId" />
+    </Key>
+    <Property Name="AttributeId" Type="int" Nullable="false" />
+    <Property Name="DescriptionEng" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="500" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MOFPortal_MV.dbo.vLookupOptions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vLookupOptions">
+    <Key>
+      <PropertyRef Name="OptionId" />
+      <PropertyRef Name="LookupId" />
+    </Key>
+    <Property Name="OptionId" Type="int" Nullable="false" />
+    <Property Name="LookupId" Type="int" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="DescriptionAlt" Type="nvarchar" MaxLength="200" />
+    <Property Name="DescriptionEng" Type="nvarchar" MaxLength="200" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="RowInsertDate" Type="datetime2" Precision="7" />
+    <Property Name="RowUpdateDate" Type="datetime2" Precision="7" />
+    <Property Name="LookUpName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_LkScreenValidationMessages_LkScreens">
+    <End Role="LkScreens" Type="Self.LkScreens" Multiplicity="0..1" />
+    <End Role="LkScreenValidationMessages" Type="Self.LkScreenValidationMessages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LkScreens">
+        <PropertyRef Name="ScreenId" />
+      </Principal>
+      <Dependent Role="LkScreenValidationMessages">
+        <PropertyRef Name="ScreenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LookupOptions_LkLookups">
+    <End Role="LkLookups" Type="Self.LkLookups" Multiplicity="1" />
+    <End Role="LookupOptions" Type="Self.LookupOptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LkLookups">
+        <PropertyRef Name="LookupId" />
+      </Principal>
+      <Dependent Role="LookupOptions">
+        <PropertyRef Name="LookupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceCategories_Services">
+    <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+    <End Role="ServiceCategories" Type="Self.ServiceCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="ServiceCategories">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceFormsConfig_ServiceCategories">
+    <End Role="ServiceCategories" Type="Self.ServiceCategories" Multiplicity="0..1" />
+    <End Role="ServiceFormsConfig" Type="Self.ServiceFormsConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceCategories">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="ServiceFormsConfig">
+        <PropertyRef Name="CategorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceFormsConfig_Services">
+    <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+    <End Role="ServiceFormsConfig" Type="Self.ServiceFormsConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="ServiceFormsConfig">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceInputLookupActions_LkLookups">
+    <End Role="LkLookups" Type="Self.LkLookups" Multiplicity="1" />
+    <End Role="ServiceInputLookupActions" Type="Self.ServiceInputLookupActions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LkLookups">
+        <PropertyRef Name="LookupId" />
+      </Principal>
+      <Dependent Role="ServiceInputLookupActions">
+        <PropertyRef Name="LookupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRatings_Services">
+    <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+    <End Role="ServiceRatings" Type="Self.ServiceRatings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="ServiceRatings">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Services_ServiceEntities">
+    <End Role="ServiceEntities" Type="Self.ServiceEntities" Multiplicity="0..1" />
+    <End Role="Services" Type="Self.Services" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceEntities">
+        <PropertyRef Name="EntityId" />
+      </Principal>
+      <Dependent Role="Services">
+        <PropertyRef Name="EntityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceTemplates_Services">
+    <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+    <End Role="ServiceTemplates" Type="Self.ServiceTemplates" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="ServiceTemplates">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceViewers_Services">
+    <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+    <End Role="ServiceViewers" Type="Self.ServiceViewers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="ServiceViewers">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserFavouriteServices_Services">
+    <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+    <End Role="UserFavouriteServices" Type="Self.UserFavouriteServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="UserFavouriteServices">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_LkRoles">
+    <End Role="LkRoles" Type="Self.LkRoles" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LkRoles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserScreenActions_LkActions">
+    <End Role="LkActions" Type="Self.LkActions" Multiplicity="0..1" />
+    <End Role="UserScreenActions" Type="Self.UserScreenActions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LkActions">
+        <PropertyRef Name="ActionId" />
+      </Principal>
+      <Dependent Role="UserScreenActions">
+        <PropertyRef Name="ActionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="create_insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="schema" Type="varchar(max)" Mode="In" />
+    <Parameter Name="table" Type="varchar(max)" Mode="In" />
+    <Parameter Name="where" Type="varchar(max)" Mode="In" />
+    <Parameter Name="top" Type="int" Mode="In" />
+    <Parameter Name="insert" Type="varchar(max)" Mode="InOut" />
+  </Function>
+  <Function Name="ES_AuthenticateCredentials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteCaptcha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CaptchaKey" Type="varchar" Mode="In" />
+    <Parameter Name="CaptchText" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteNoActionUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ReferenceNo" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteRequestsAndEnquiries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+    <Parameter Name="RowUpdatedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceAudience" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceCardEntities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceChannels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceConditions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceDepartments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceDocuments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceDuration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceFaqs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceFees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceProcedures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceResponsibleOfficer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteServiceVideos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteUserAuthDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="jwtoken" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_DeleteUserFavouriteService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="RowUpdatedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GeKpitHitCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GeRequestsAndEnquiriesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StatusId" Type="int" Mode="In" />
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="nvarchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime2" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime2" Mode="In" />
+    <Parameter Name="DepartmentId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetAItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetAItemsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetAttachments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetBeneficiaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetBeneficiaryServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EntityId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetChildServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ParentServiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetChildServicesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetDashboardStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Month" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime2" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime2" Mode="In" />
+  </Function>
+  <Function Name="ES_GetDashboardStatisticsByMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetDashboardStatisticsByServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetEmailNotifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetExistingToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetKpiAverageRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetKpiByKeywords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetKpiByServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+    <Parameter Name="Language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetKpiByServiceType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+    <Parameter Name="Language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetKpiByUserType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+    <Parameter Name="Language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetLabels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+    <Parameter Name="ViewId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetLkActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkEmirates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkInquiryTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkLookups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkPersonTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkRequestStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkScreenLabels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ScreenId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetLkScreens" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkServiceGuideHintTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLkUserAttributesSSO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetLogger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime2" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime2" Mode="In" />
+  </Function>
+  <Function Name="ES_GetLookupOptions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LookupId" Type="int" Mode="In" />
+    <Parameter Name="LookupName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetNoActionsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+    <Parameter Name="TypeId" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime2" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime2" Mode="In" />
+  </Function>
+  <Function Name="ES_GetNoActionsSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+    <Parameter Name="TypeId" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime2" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime2" Mode="In" />
+  </Function>
+  <Function Name="ES_GetNoActionsUserData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetRequestRedirection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetRequestsAndEnquiriesDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetRequestsAndEnquiriesRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+    <Parameter Name="Status" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceApiSource" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SourceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceAudience" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceCardEntities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceChannels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceCommentsAttachmentConfiguration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceConditions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceControlDrillDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="InputId" Type="int" Mode="In" />
+    <Parameter Name="InputControlId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceDataByGuid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceDepartments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceDocuments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceDuration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceEntities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceFAQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceFees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceFormConfiguration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="CategorId" Type="int" Mode="In" />
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+    <Parameter Name="InputId" Type="int" Mode="In" />
+    <Parameter Name="InputControlId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceGuideChannels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceGuideConfig" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceGuideFAQs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceGuideHintActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="HintId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceGuideHints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceGuideProcedures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceGuideRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceGuideSupport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceGuideSurveyQueries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceGuideSurveyQueryOptions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="QID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceGuideVideos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceInputLookupActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="InputId" Type="int" Mode="In" />
+    <Parameter Name="InputControlId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceInputTooltips" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="InputId" Type="int" Mode="In" />
+    <Parameter Name="InputControlId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceProcedures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceRequirements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceResponsibleOfficer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="EntityId" Type="int" Mode="In" />
+    <Parameter Name="TypeId" Type="int" Mode="In" />
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+    <Parameter Name="userType" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServicesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_GetServiceTabs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceTemplates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceTemplatesData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TemplateId" Type="int" Mode="In" />
+    <Parameter Name="Language" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TypeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceUserTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceVideos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetServiceViewers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetTokenClientKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClientID" Type="varchar" Mode="In" />
+    <Parameter Name="CompanyID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetUserAuthDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="jwtoken" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetUserFavouriteService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetUserRequestsAndEnquiriesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="nvarchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime2" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime2" Mode="In" />
+  </Function>
+  <Function Name="ES_GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+    <Parameter Name="RoleId" Type="smallint" Mode="In" />
+    <Parameter Name="DepartmentId" Type="smallint" Mode="In" />
+  </Function>
+  <Function Name="ES_GetUserScreenActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="OrderBy" Type="int" Mode="In" />
+    <Parameter Name="OrderByDir" Type="varchar" Mode="In" />
+    <Parameter Name="SearchCri" Type="varchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime2" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime2" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="DepartmentId" Type="int" Mode="In" />
+    <Parameter Name="TypeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_GetUserServicesActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_GetVersion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ES_HitCounter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SLID" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TypeId" Type="int" Mode="In" />
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceUrl" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="NameEng" Type="varchar" Mode="In" />
+    <Parameter Name="NameAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="CardUrlEng" Type="varchar" Mode="In" />
+    <Parameter Name="CardUrlAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="FormUrlEng" Type="varchar" Mode="In" />
+    <Parameter Name="FormUrlAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceEntities" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceAudience" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceCardEntities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceChannels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceConditions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="PhoneNo" Type="varchar" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceDepartments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceDocuments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceDuration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceFaqs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="nvarchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceFees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ActualFees" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceAmount" Type="nvarchar" Mode="In" />
+    <Parameter Name="Vat" Type="nvarchar" Mode="In" />
+    <Parameter Name="Total" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceProcedures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceResponsibleOfficer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="nvarchar" Mode="In" />
+    <Parameter Name="PhoneNo" Type="varchar" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_ImportArisServiceVideos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="thumbnailPicture" Type="nvarchar" Mode="In" />
+    <Parameter Name="typeOfVideo" Type="nvarchar" Mode="In" />
+    <Parameter Name="uRL" Type="nvarchar" Mode="In" />
+    <Parameter Name="ServiceGuid" Type="varchar" Mode="In" />
+    <Parameter Name="Lingo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertArisItemDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Content" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="serviceId" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertArisItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Content" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestUniqueId" Type="bigint" Mode="In" />
+    <Parameter Name="FileName" Type="varchar" Mode="In" />
+    <Parameter Name="FileType" Type="varchar" Mode="In" />
+    <Parameter Name="FileSize" Type="int" Mode="In" />
+    <Parameter Name="FileUrl" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertEmailNotifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestUniqueId" Type="bigint" Mode="In" />
+    <Parameter Name="EmailFrom" Type="varchar" Mode="In" />
+    <Parameter Name="EmailTo" Type="varchar" Mode="In" />
+    <Parameter Name="Subject" Type="varchar" Mode="In" />
+    <Parameter Name="Body" Type="nvarchar" Mode="In" />
+    <Parameter Name="StatusId" Type="int" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="AttachmentPath" Type="nvarchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertLkUserAttributesSSO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertLoginAudit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="Latitude" Type="numeric" Mode="In" />
+    <Parameter Name="Longitude" Type="numeric" Mode="In" />
+    <Parameter Name="Country" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertNoActionUserActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ReferenceNo" Type="varchar" Mode="In" />
+    <Parameter Name="InputControlId" Type="varchar" Mode="In" />
+    <Parameter Name="Question" Type="nvarchar" Mode="In" />
+    <Parameter Name="Answer" Type="nvarchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertNoActionUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ReferenceNo" Type="varchar" Mode="In" />
+    <Parameter Name="ExternalServiceId" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="UserType" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertRequestsAndEnquiries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="StatusId" Type="int" Mode="In" />
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+    <Parameter Name="PreviousRequestId" Type="varchar" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="RequestDetails" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="UniqueId" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="ES_InsertServiceTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DescriptionEng" Type="varchar" Mode="In" />
+    <Parameter Name="DescriptionAlt" Type="varchar" Mode="In" />
+    <Parameter Name="ParentTypeId" Type="int" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+    <Parameter Name="TypeId" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="ES_InsertUserActivityLogging" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+    <Parameter Name="LogType" Type="nvarchar" Mode="In" />
+    <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+    <Parameter Name="Username" Type="varchar" Mode="In" />
+    <Parameter Name="UserAgent" Type="varchar" Mode="In" />
+    <Parameter Name="UserDefined01" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserDefined02" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserDefined03" Type="nvarchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+    <Parameter Name="UserType" Type="varchar" Mode="In" />
+    <Parameter Name="LoginType" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertUserAuthDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="useremail" Type="varchar" Mode="In" />
+    <Parameter Name="userdisplayname" Type="nvarchar" Mode="In" />
+    <Parameter Name="mobile" Type="varchar" Mode="In" />
+    <Parameter Name="token" Type="varchar" Mode="In" />
+    <Parameter Name="jwtoken" Type="varchar" Mode="In" />
+    <Parameter Name="responseToId" Type="varchar" Mode="In" />
+    <Parameter Name="samlResponse" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="tokenExpiry" Type="datetime2" Mode="In" />
+    <Parameter Name="ipAddress" Type="varchar" Mode="In" />
+    <Parameter Name="nameId" Type="varchar" Mode="In" />
+    <Parameter Name="userType" Type="varchar" Mode="In" />
+    <Parameter Name="loginType" Type="varchar" Mode="In" />
+    <Parameter Name="nationality" Type="nvarchar" Mode="In" />
+    <Parameter Name="userAttributes" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertUserFavouriteService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_InsertUserScreenAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ActionId" Type="int" Mode="In" />
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+    <Parameter Name="UniqueId" Type="varchar" Mode="In" />
+    <Parameter Name="Remarks" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_IsAnonomysService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_IsTokenAlreadyExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_IsTokenAlreadyExpired" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ES_LogCaptcha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CaptchaKey" Type="varchar" Mode="In" />
+    <Parameter Name="CaptchText" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_Logger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="varchar" Mode="In" />
+    <Parameter Name="VersionNo" Type="varchar" Mode="In" />
+    <Parameter Name="Message" Type="varchar" Mode="In" />
+    <Parameter Name="ClassName" Type="varchar" Mode="In" />
+    <Parameter Name="InnerException" Type="varchar" Mode="In" />
+    <Parameter Name="StackTraceString" Type="varchar" Mode="In" />
+    <Parameter Name="RemoteStackIndex" Type="int" Mode="In" />
+    <Parameter Name="ExceptionMethod" Type="varchar" Mode="In" />
+    <Parameter Name="HResult" Type="int" Mode="In" />
+    <Parameter Name="Source" Type="varchar" Mode="In" />
+    <Parameter Name="HelpURL" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_LogRecordsBeforeImport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_LogRequestRedirection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CaseId" Type="varchar" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_LogServiceGuideSurveyResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="QuestionId" Type="int" Mode="In" />
+    <Parameter Name="OptionId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_LogToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TokenKey" Type="varchar" Mode="In" />
+    <Parameter Name="CompanyID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="IssuedOn" Type="datetime" Mode="In" />
+    <Parameter Name="ExpiresOn" Type="datetime" Mode="In" />
+    <Parameter Name="CreatedOn" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="ES_RateService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="ExternalServiceID" Type="varchar" Mode="In" />
+    <Parameter Name="Rate" Type="int" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_RateServiceGuide" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="Rate" Type="int" Mode="In" />
+    <Parameter Name="RowInsertedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_StillLoggedIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="ipAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_UpdateRequestsAndEnquiries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="StatusId" Type="int" Mode="In" />
+    <Parameter Name="ServiceId" Type="int" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+    <Parameter Name="PreviousRequestId" Type="bigint" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="RequestDetails" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="RowUpdatedBy" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_UpdateRequestsAndEnquiriesStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestId" Type="varchar" Mode="In" />
+    <Parameter Name="Status" Type="varchar" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+    <Parameter Name="IpAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_VerifyCaptcha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CaptchaKey" Type="varchar" Mode="In" />
+    <Parameter Name="CaptchText" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ES_VerifyTokenClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClientID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="INS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Query" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="Remove_SpecialCharacters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
+    <Parameter Name="str" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_generate_insertscripts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TABLENAME" Type="varchar(max)" Mode="In" />
+    <Parameter Name="FILTER_CONDITION" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="ufn_CSVToTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StringInput" Type="varchar" Mode="In" />
+    <Parameter Name="Delimiter" Type="nvarchar" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="String" Type="varchar" MaxLength="100" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <EntityContainer Name="MofEservicesModelStoreContainer">
+    <EntitySet Name="AItemDetails" EntityType="Self.AItemDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AItems" EntityType="Self.AItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="API_Sources" EntityType="Self.API_Sources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Captcha" EntityType="Self.Captcha" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailNotifications" EntityType="Self.EmailNotifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HitCounters" EntityType="Self.HitCounters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logger" EntityType="Self.Logger" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoginAudit" EntityType="Self.LoginAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LookupOptions" EntityType="Self.LookupOptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LookupOptions_Log" EntityType="Self.LookupOptions_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NoActionUserActivities" EntityType="Self.NoActionUserActivities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NoActionUsers" EntityType="Self.NoActionUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestAndEnquiriesDetails" EntityType="Self.RequestAndEnquiriesDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestAndEnquiriesDetailsLog" EntityType="Self.RequestAndEnquiriesDetailsLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestRedirection" EntityType="Self.RequestRedirection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestsAndEnquiries" EntityType="Self.RequestsAndEnquiries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestsAndEnquiriesLog" EntityType="Self.RequestsAndEnquiriesLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoleGroups" EntityType="Self.RoleGroups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceAudience" EntityType="Self.ServiceAudience" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceCardEntities" EntityType="Self.ServiceCardEntities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceCategories" EntityType="Self.ServiceCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceCategories_Log" EntityType="Self.ServiceCategories_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceChannels" EntityType="Self.ServiceChannels" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceCommentsAttachmentsConfig" EntityType="Self.ServiceCommentsAttachmentsConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceCommentsAttachmentsConfig_Log" EntityType="Self.ServiceCommentsAttachmentsConfig_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceConditions" EntityType="Self.ServiceConditions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceContact" EntityType="Self.ServiceContact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceDepartments" EntityType="Self.ServiceDepartments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceDocuments" EntityType="Self.ServiceDocuments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceDuration" EntityType="Self.ServiceDuration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceEntities" EntityType="Self.ServiceEntities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceEntitiesMapping" EntityType="Self.ServiceEntitiesMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceFaqs" EntityType="Self.ServiceFaqs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceFees" EntityType="Self.ServiceFees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceFormsConfig" EntityType="Self.ServiceFormsConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceFormsConfig_Log" EntityType="Self.ServiceFormsConfig_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceFormsDrilldownConfig" EntityType="Self.ServiceFormsDrilldownConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceFormsDrilldownConfig_Log" EntityType="Self.ServiceFormsDrilldownConfig_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuide" EntityType="Self.ServiceGuide" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideChannels" EntityType="Self.ServiceGuideChannels" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideFaqs" EntityType="Self.ServiceGuideFaqs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideHintActions" EntityType="Self.ServiceGuideHintActions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideHints" EntityType="Self.ServiceGuideHints" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideProcedures" EntityType="Self.ServiceGuideProcedures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideRatings" EntityType="Self.ServiceGuideRatings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideSupport" EntityType="Self.ServiceGuideSupport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideSurveyQueries" EntityType="Self.ServiceGuideSurveyQueries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideSurveyQueryOptions" EntityType="Self.ServiceGuideSurveyQueryOptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideSurveyResponses" EntityType="Self.ServiceGuideSurveyResponses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceGuideVideos" EntityType="Self.ServiceGuideVideos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceInputLookupActions" EntityType="Self.ServiceInputLookupActions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceInputLookupActions_Log" EntityType="Self.ServiceInputLookupActions_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceInputTooltips" EntityType="Self.ServiceInputTooltips" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceInputTooltips_Log" EntityType="Self.ServiceInputTooltips_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceLocations" EntityType="Self.ServiceLocations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceProcedures" EntityType="Self.ServiceProcedures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceRatings" EntityType="Self.ServiceRatings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceRequirements" EntityType="Self.ServiceRequirements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceResponsibleOfficer" EntityType="Self.ServiceResponsibleOfficer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Services_Log" EntityType="Self.Services_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceTabs" EntityType="Self.ServiceTabs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceTabs_Log" EntityType="Self.ServiceTabs_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceTemplates" EntityType="Self.ServiceTemplates" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceTemplates_Log" EntityType="Self.ServiceTemplates_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceTemplatesData" EntityType="Self.ServiceTemplatesData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceUserTypes" EntityType="Self.ServiceUserTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceVideos" EntityType="Self.ServiceVideos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceVideos_Log" EntityType="Self.ServiceVideos_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceViewers" EntityType="Self.ServiceViewers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceViewers_Log" EntityType="Self.ServiceViewers_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TokenClientKey" EntityType="Self.TokenClientKey" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TokenCompany" EntityType="Self.TokenCompany" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TokenManager" EntityType="Self.TokenManager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TokenUser" EntityType="Self.TokenUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserActivityLogging" EntityType="Self.UserActivityLogging" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAuthDetails" EntityType="Self.UserAuthDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserFavouriteServices" EntityType="Self.UserFavouriteServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserScreenActions" EntityType="Self.UserScreenActions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VersionHistory" EntityType="Self.VersionHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LkActions" EntityType="Self.LkActions" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkCountry" EntityType="Self.LkCountry" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkEmirates" EntityType="Self.LkEmirates" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkGroups" EntityType="Self.LkGroups" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkInputLanguages" EntityType="Self.LkInputLanguages" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkInputTypes" EntityType="Self.LkInputTypes" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkInquiryTypes" EntityType="Self.LkInquiryTypes" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkLogicalOperators" EntityType="Self.LkLogicalOperators" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkLookups" EntityType="Self.LkLookups" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkLookups_Log" EntityType="Self.LkLookups_Log" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkMenu" EntityType="Self.LkMenu" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkPersonTypes" EntityType="Self.LkPersonTypes" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkRequestStatus" EntityType="Self.LkRequestStatus" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkRoles" EntityType="Self.LkRoles" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkScreenLabels" EntityType="Self.LkScreenLabels" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkScreens" EntityType="Self.LkScreens" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkScreenValidationMessages" EntityType="Self.LkScreenValidationMessages" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkServiceGuideHintTypes" EntityType="Self.LkServiceGuideHintTypes" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="LkUserAttributesSSO" EntityType="Self.LkUserAttributesSSO" Schema="Lks" store:Type="Tables" />
+    <EntitySet Name="vLookupOptions" EntityType="Self.vLookupOptions" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vLookupOptions].[OptionId] AS [OptionId], 
+    [vLookupOptions].[LookupId] AS [LookupId], 
+    [vLookupOptions].[Code] AS [Code], 
+    [vLookupOptions].[DescriptionAlt] AS [DescriptionAlt], 
+    [vLookupOptions].[DescriptionEng] AS [DescriptionEng], 
+    [vLookupOptions].[SortOrder] AS [SortOrder], 
+    [vLookupOptions].[RowInsertDate] AS [RowInsertDate], 
+    [vLookupOptions].[RowUpdateDate] AS [RowUpdateDate], 
+    [vLookupOptions].[LookUpName] AS [LookUpName]
+    FROM [dbo].[vLookupOptions] AS [vLookupOptions]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_LkScreenValidationMessages_LkScreens" Association="Self.FK_LkScreenValidationMessages_LkScreens">
+      <End Role="LkScreens" EntitySet="LkScreens" />
+      <End Role="LkScreenValidationMessages" EntitySet="LkScreenValidationMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LookupOptions_LkLookups" Association="Self.FK_LookupOptions_LkLookups">
+      <End Role="LkLookups" EntitySet="LkLookups" />
+      <End Role="LookupOptions" EntitySet="LookupOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceCategories_Services" Association="Self.FK_ServiceCategories_Services">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="ServiceCategories" EntitySet="ServiceCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceFormsConfig_ServiceCategories" Association="Self.FK_ServiceFormsConfig_ServiceCategories">
+      <End Role="ServiceCategories" EntitySet="ServiceCategories" />
+      <End Role="ServiceFormsConfig" EntitySet="ServiceFormsConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceFormsConfig_Services" Association="Self.FK_ServiceFormsConfig_Services">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="ServiceFormsConfig" EntitySet="ServiceFormsConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceInputLookupActions_LkLookups" Association="Self.FK_ServiceInputLookupActions_LkLookups">
+      <End Role="LkLookups" EntitySet="LkLookups" />
+      <End Role="ServiceInputLookupActions" EntitySet="ServiceInputLookupActions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRatings_Services" Association="Self.FK_ServiceRatings_Services">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="ServiceRatings" EntitySet="ServiceRatings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Services_ServiceEntities" Association="Self.FK_Services_ServiceEntities">
+      <End Role="ServiceEntities" EntitySet="ServiceEntities" />
+      <End Role="Services" EntitySet="Services" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceTemplates_Services" Association="Self.FK_ServiceTemplates_Services">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="ServiceTemplates" EntitySet="ServiceTemplates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceViewers_Services" Association="Self.FK_ServiceViewers_Services">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="ServiceViewers" EntitySet="ServiceViewers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserFavouriteServices_Services" Association="Self.FK_UserFavouriteServices_Services">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="UserFavouriteServices" EntitySet="UserFavouriteServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_LkRoles" Association="Self.FK_Users_LkRoles">
+      <End Role="LkRoles" EntitySet="LkRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserScreenActions_LkActions" Association="Self.FK_UserScreenActions_LkActions">
+      <End Role="LkActions" EntitySet="LkActions" />
+      <End Role="UserScreenActions" EntitySet="UserScreenActions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

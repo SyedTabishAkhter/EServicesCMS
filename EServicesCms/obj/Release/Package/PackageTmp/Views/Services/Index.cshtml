@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "Index";
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Services.js"></script>
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Services", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Services", "lblManageServices", "Manage Services")</h1></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                @if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_IMPORT_SERVICE") == true)
+                {
+                    <button class="main" type="button" id="myBtn">@EServicesCms.Common.DbManager.GetText("Services", "lblImportService", "Import Service")</button>
+                }
+                @if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_NEW_SERVICE") == true)
+                {
+                    <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=0")">
+                        <button class="main" type="button">@EServicesCms.Common.DbManager.GetText("Services", "lblSaveService", "Save Service")</button>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="content p20">
+        <div class="tabs material">
+            <div class="tab_heads jcc mb10">
+
+                @if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_MANAGE_SERVICES") == true)
+                {
+                    <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Services", null, Request.Url.Scheme, null) +"?id=1")" class="tab on">@EServicesCms.Common.DbManager.GetText("Services", "lblServices", "Services")</a>
+                }
+
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceEntities", "Services", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceEntities", "Service Entities")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceTypes", "Services", null, Request.Url.Scheme, null) +"?id=1")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTypes", "Service Types")</a>
+            </div>
+            <div class="tab_body" style="width: 100%; background: rgba(255,255,255,0.95); box-shadow: 0 0 10px rgb(0 0 0 / 10%); margin-bottom:5px; ">
+                <div class="filters">
+                    <div class="form-group">
+                        <input onclick="GetServices();" type="radio" name="IsActive" value="true" id="yes" checked />
+                        <label for="yes">@EServicesCms.Common.DbManager.GetText("Services", "lblActiveServices", "Active")</label>
+                        <input onclick="GetServices();" type="radio" name="IsActive" value="false" id="no" />
+                        <label for="no">@EServicesCms.Common.DbManager.GetText("Services", "lblInActiveServices", "In-Active")</label>
+                    </div>
+                    @Html.DropDownList("EntityId", ViewBag.Entities as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectEntity", "Select Entity"), new { id = "EntityId", @class = "form-control", @onchange = "GetServices();" })
+                    @Html.DropDownList("TypeId", ViewBag.Types as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectType", "Select Type"), new { id = "TypeId", @class = "form-control", @onchange = "GetServices();" })
+                    @Html.DropDownList("DepartmentId", ViewBag.Departments as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblDepartmentId", "Select Department"), new { id = "DepartmentId", @class = "form-control", @onchange = "GetServices();" })
+                    <input type="search" name="name_filter" id="name_filter" onkeypress="stripHtmlToText('name_filter');" onblur="stripHtmlToText('name_filter');"  placeholder="@EServicesCms.Common.DbManager.GetText("Lookup", "lblSearchData", "Search Data")" autocomplete="off">
+                    <button type="button" class="filter" onclick="GetServices();">@EServicesCms.Common.DbManager.GetText("Services", "lblFilter", "Filter")</button>
+                    <button type="button" class="clear" onclick="ResetSearch();">@EServicesCms.Common.DbManager.GetText("Services", "lblClear", "Clear")</button>
+                </div>
+            </div>
+        </div>
+        <div class="services cards row" id="dvData">
+            @{
+                @*if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_NEW_SERVICE") == true)
+                    {
+                        <div class="col-6 col-md-2">
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=0")" class="card tac p30">
+                                <div class="icon add mt-5"></div>
+                                <h4 class="tac fwb mt-3 mb-4">@EServicesCms.Common.DbManager.GetText("Services", "lblAddService", "CREATE")</h4>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=0")" class="card tac p30">
+                                <div class="icon add mt-5"></div>
+                                <h4 class="tac fwb mt-3 mb-4">@EServicesCms.Common.DbManager.GetText("Services", "lblAddService", "IMPORT")</h4>
+                            </a>
+                        </div>
+                    }*@
+            }
+
+        </div>
+    </div>
+    <input id="ajaxUrl" type="hidden" value="@Url.Action("AjaxGetServices", "Services")" />
+    <input id="deleteUrl" type="hidden" value="@Url.Action("AjaxDeleteService", "Services")" />
+    <input id="activateUrl" type="hidden" value="@Url.Action("AjaxActivateService", "Services")" />
+    <input id="deactivateUrl" type="hidden" value="@Url.Action("AjaxDeActivateService", "Services")" />
+    <input id="importUrl" type="hidden" value="@Url.Action("ImportService", "Services")" />
+
+
+    <div id="dvForm" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <h2>@EServicesCms.Common.DbManager.GetText("Services", "lblImportService", "IMPORT SERVICE")</h2>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="placeholder_en">@EServicesCms.Common.DbManager.GetText("Services", "lblSelectTemplate", "Expoted [.json] file only")</label>
+                                    <input id="fileInput" type="file" name="fileInput" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row" align="center">
+                            <div class="col-md-12">
+                                <img src="@Url.Content("~/Content/images/PreLoad.gif")" alt="" id="imgLoading" style="display:none;" />
+                                <button type="button" id="btnImport" class="btn btn-sm btn-warning" onclick="ImportService();"><i class="ace-icon fa fa-save"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblImport", "Import")</button>
+                                <button type="button" id="btnImportClose" onclick="CloseForm();" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-remove"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblClose", "Close")</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+<script type="text/javascript">
+
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+
+    GetServices();
+
+    var modal = document.getElementById("dvForm");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    if (btn != null) {
+        btn.onclick = function () {
+            modal.style.display = "block";
+            $("#fileInput").val(null);
+            $("#btnImport").show();
+            $("#btnImportClose").show();
+            $("#imgLoading").hide();
+        }
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            clearSubInput();
+            modal.style.display = "none";
+        }
+    }
+
+    @Html.Raw(ViewBag.PageAlertCodes);
+</script>
+

@@ -1,0 +1,118 @@
+﻿@model   List<EServicesCms.Models.ES_GetNoActionsUserData_Result>
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/Content/timeline/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://ace.jeka.by/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link href="~/Content/timeline/ace.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/timeline/ace-rtl.min.css" />
+    <title>@ViewBag.UserName</title>
+</head>
+<body id="pageBody" onblur="Window.focus();" class="no-skin @(EServicesCms.Common.Helper.CurrentLanguage() == (int)EServicesCms.Common.Language.English ? "" : "rtl" )" data-device="desktop" data-os="os_x" data-browser="chrome">
+    <article>
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="user-profile-1" class="user-profile row">
+                    <div class="col-xs-12 col-sm-3 center">
+                        <div>
+                            <span class="profile-picture">
+                                <img id="avatar" class="editable img-responsive editable-click editable-empty" alt="@ViewBag.UserName" src="@Url.Content("~/Content/Images/IsAnonymous.png")" style="display: block;">
+                            </span>
+                            <div class="space-4"></div>
+                            <div class="width-80 label label-warning label-xlg" style="background-color: #c3943d;">
+                                <div class="inline position-relative">
+                                    <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                        @*<i class="ace-icon fa fa-circle light-green"></i>
+                                        &nbsp;*@
+                                        <span class="white">@ViewBag.UserName</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="timeline-container">
+
+                                @{
+                                    bool bRowColor = false;
+
+                                    var serviceIds = Model.Select(o => o.ExternalServiceId).Distinct();
+                                    foreach (var service in serviceIds)
+                                    {
+                                        <div class="timeline-label">
+                                            @{ 
+                                                if (EServicesCms.Common.Helper.CurrentLanguage() == (int)EServicesCms.Common.Language.Arabic)
+                                                {
+                                                    <span class="label label-danger arrowed-in label-lg">
+                                                        <b>@service</b>
+                                                    </span>
+                                                }
+                                                else
+                                                { 
+                                                    <span class="label label-danger arrowed-in-right label-lg">
+                                                        <b>@service</b>
+                                                    </span>
+                                                }
+                                            }
+                                            
+                                        </div>
+
+                                        var iRecord = Model.Where(x => x.ExternalServiceId == service).ToList();
+
+                                        var distinctDates = iRecord.Select(o => o.RowInsertDate).Distinct();
+
+                                        foreach (var iDate in distinctDates)
+                                        {
+                                            var iDateData = iRecord.Where(x => x.RowInsertDate == iDate).ToList();
+
+                                            <div class="timeline-items">
+                                                <div class="timeline-item clearfix">
+                                                    <div class="timeline-info">
+                                                        <span class="label label-info label-sm">@iDate</span>
+                                                    </div>
+
+                                                    @foreach (var idata in iDateData)
+                                                    {
+                                                        <div class="widget-box transparent">
+                                                            <div class="widget-header widget-header-small">
+                                                                <h5 class="widget-title smaller">
+                                                                    <span class="grey">@idata.Question</span>
+                                                                </h5>
+                                                                <span class="widget-toolbar no-border">
+                                                                    <i class="ace-icon fa fa-clock-o bigger-110"></i>
+                                                                    @idata.RowInsertTime
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="widget-body">
+                                                                <div class="widget-main">
+                                                                    @idata.Answer
+                                                                    <div class="space-6"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="space-6"></div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="space-6"></div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</body>
+</html>

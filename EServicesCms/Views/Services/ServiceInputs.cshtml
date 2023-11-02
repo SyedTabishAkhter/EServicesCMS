@@ -1,0 +1,120 @@
+﻿@model EServicesCms.Models.ServiceObject
+@{
+    ViewBag.Title = "Index";
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Services.js"></script>
+    <link href="~/Content/MyModal.css" rel="stylesheet" />
+}
+<article class="">
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Services", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblManageServices", "Manage Services")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceInputs", "Service Fields")</h1></a>
+            </div>
+        </div>
+        @{
+            <div class="right">
+                <div class="filters">
+                    @*<div class="form-group">
+                            <input onclick="GetServiceClassifications('@Model.ServiceId');" type="radio" name="IsActive" value="true" id="yes" checked />
+                            <label for="yes">Active</label>
+                            <input onclick="GetServiceClassifications('@Model.ServiceId');" type="radio" name="IsActive" value="false" id="no" />
+                            <label for="no">In-Active</label>
+                        </div>*@
+                    @{
+                        if (ViewBag.ServiceTabs != null)
+                        {
+                            @Html.DropDownList("TabId", ViewBag.ServiceTabs as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblTabid", "Select Tab"), new { id = "TabId", @class = "form-control", @onchange = "GetServiceInputs('" + Model.ServiceId + "');" })
+                        }
+
+                        @Html.DropDownList("InputTypeId", ViewBag.InputTypes as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectInputType", "Select InputType"), new { id = "InputTypeId", @class = "form-control", @onchange = "GetServiceInputs('" + Model.ServiceId + "');" })
+
+                        if (ViewBag.HasSubServices == true)
+                        {
+                            @Html.DropDownList("SubServiceId", ViewBag.SubServices as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectService", "Select Service"), new { id = "SubServiceId", @class = "form-control", @onchange = "GetServiceClassificationsList('" + Model.ServiceId + "');" })
+                        }
+                        if (ViewBag.HasClassfication == true)
+                        {
+                            @Html.DropDownList("CategoryId", ViewBag.Classifications as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectCategory", "Select Classification"), new { id = "CategoryId", @class = "form-control", @onchange = "GetServiceInputs('" + Model.ServiceId + "');" })
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="sub_header">
+        <div class="page_wrap">
+            @{
+                if (EServicesCms.Common.Helper.CurrentLanguage() == 1)
+                {
+                    <h2>@Model.DescriptionEng</h2>
+                }
+                else
+                { <h2>@Model.DescriptionAlt </h2> }
+            }
+        </div>
+    </div>
+    <div class="">
+        <div class="py-4">
+            <div class="tabs material">
+                <div class="tab_heads jcc mb10">
+                    <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceDetails", "Service Details")</a>
+                    @{
+                        if (ViewBag.FormMode == "Edit")
+                        {
+                            if (ViewBag.HasSubServices == true)
+                            {
+                                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("SubServices", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblSubServices", "Sub Services")</a>
+                            }
+                            if (ViewBag.HasClassfication == true)
+                            {
+                                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceClassifications", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceClassification", "Classifications")</a>
+                            }
+                            if (Model.TabularLayout == true)
+                            {
+                                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceTabs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTabs", "Service Tabs")</a>
+                            }
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceInputs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab on">@EServicesCms.Common.DbManager.GetText("Services", "lblInputs", "Service Fields")</a>
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FormBuilder", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId+"&inputId=0")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblFormBuilder", "Field Editor")</a>
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Templates", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblTemplates", "Templates")</a>
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Tooltip", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblToolTip", "Tooltips")</a>
+                            @*<a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblVideo", "Videos")</a>*@
+                        }
+                    }
+                </div>
+            </div>
+            <div class="services cards row" id="dvData">
+                @{
+                    if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_ADD_SERVICE_FIELD") == true)
+                    {
+                        <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FormBuilder", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId+"&inputId=0")" class="card tac p30">
+                                <div class="icon add mt-5"></div>
+                                <h4 class="tac fwb mt-3 mb-4">@EServicesCms.Common.DbManager.GetText("Services", "lblAddNewInput", "ADD NEW SERVICE FIELD")</h4>
+                            </a>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+    <input id="ajaxUrl" type="hidden" value="@Url.Action("AjaxGetServiceInputs", "Services")" />
+    <input id="deleteUrl" type="hidden" value="@Url.Action("AjaxDeleteServiceInputs", "Services")" />
+    <input id="activateUrl" type="hidden" value="@Url.Action("AjaxActivateServiceInputs", "Services")" />
+    <input id="deactivateUrl" type="hidden" value="@Url.Action("AjaxDeActivateServiceInputs", "Services")" />
+    <input id="loadClassificationUrl" type="hidden" value="@Url.Action("LoadServiceClassifications", "Services")" />
+    <input id="changeSortOrderUrl" type="hidden" value="@Url.Action("ChangeSortOrder", "Services")" />
+</article>
+
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+
+    GetServiceInputs('@Model.ServiceId');
+
+    @Html.Raw(ViewBag.PageAlertCodes);
+</script>

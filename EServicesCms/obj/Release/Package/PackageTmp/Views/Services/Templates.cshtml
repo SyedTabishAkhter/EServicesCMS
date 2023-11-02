@@ -1,0 +1,172 @@
+﻿@model EServicesCms.Models.ServiceObject
+@{
+    ViewBag.Title = "Index";
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Services.js"></script>
+    int serviceId = 0;
+    if (Model.ParentServiceId > 0)
+    {
+        serviceId = Model.ParentServiceId.Value;
+    }
+    else
+    {
+        serviceId = Model.ServiceId;
+    }
+}
+<article class="">
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Services", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblManageServices", "Manage Services")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Templates", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Services", "lblFormBuilder", "Service Templates")</h1></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                @{ 
+                    if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_ADD_TEMPLATE") == true)
+                    {
+                        <button class="main" id="btnSave" type="button" onclick="SaveServiceTemplate();">@EServicesCms.Common.DbManager.GetText("Services", "lblTemplateSave", "Save Template")</button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="sub_header">
+        <div class="page_wrap">
+            @{
+                if (EServicesCms.Common.Helper.CurrentLanguage() == 1)
+                {
+                    <h2>@Model.DescriptionEng</h2>
+                }
+                else
+                { <h2>@Model.DescriptionAlt </h2> }
+
+            <input type="hidden" id="saveUrl" name="saveUrl" value="@Url.Action("SaveTemplate","Services")" />
+            <input id="deleteUrl" type="hidden" value="@Url.Action("AjaxDeleteTemplate", "Services")" />
+            <input id="ajaxUrl" type="hidden" value="@Url.Action("AjaxGetTemplates", "Services")" />
+            <input id="loadClassificationUrl" type="hidden" value="@Url.Action("LoadServiceClassifications", "Services")" />
+            <input id="loadInputsUrl" type="hidden" value="@Url.Action("LoadServiceClassificationsAttachmentInputs", "Services")" />
+            }
+        </div>
+    </div>
+    <div class="">
+        <div class="py-4">
+            <div class="tabs material">
+                <div class="tab_heads jcc mb10">
+                    <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceDetails", "Service Details")</a>
+                    @{
+                        if (ViewBag.HasSubServices == true)
+                        {
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("SubServices", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblSubServices", "Sub Services")</a>
+                        }
+                        if (ViewBag.HasClassfication == true)
+                        {
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceClassifications", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceClassification", "Classifications")</a>
+                        }
+                        if (ViewBag.ServiceTabs != null)
+                        {
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceTabs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTabs", "Service Tabs")</a>
+                        }
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceInputs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblInputs", "Service Fields")</a>
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FormBuilder", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId+"&inputId=0")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblFormBuilder", "Field Editor")</a>
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Templates", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab on">@EServicesCms.Common.DbManager.GetText("Services", "lblTemplates", "Templates")</a>
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Tooltip", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblToolTip", "Tooltips")</a>
+                        @*<a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblVideo", "Videos")</a>*@
+                    }
+                </div>
+            </div>
+            <div class="page_wrap">
+                <div class="form_built pt20">
+                    <fieldset class="bg_white p40">
+                        <div class="fields">
+                            <div class="row">
+                                @{
+                                    if (ViewBag.Classifications != null)
+                                    {
+                                        <div class="col-12 col-lg-6">
+                                            <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblService", "Service") <span class="mRed">*</span></label>
+                                            @Html.DropDownList("SubServiceId", ViewBag.SubServices as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectService", "Select Service"), new { id = "SubServiceId", @class = "form-control", @onchange = "GetServiceClassificationsListTemplates('" + Model.ServiceId + "');GetInputs();GetTemplates();" })
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12 col-lg-6">
+                                            <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblService", "Service") <span class="mRed">*</span></label>
+                                            @Html.DropDownList("SubServiceId", ViewBag.SubServices as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectService", "Select Service"), new { id = "SubServiceId", @class = "form-control", @onchange = "GetInputs();GetTemplates();" })
+                                        </div>
+                                    }
+                                    if (ViewBag.Classifications != null)
+                                    {
+                                        <div class="col-12 col-lg-6">
+                                            <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblClassification", "Classification") <span class="mRed">*</span></label>
+                                            @Html.DropDownList("CategoryId", ViewBag.Classifications as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectCateogry", "Select Classification"), new { id = "CategoryId", @class = "form-control", @onchange = "GetInputs();GetTemplates();" })
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblAttachment", "Attachment") <span class="mRed">*</span></label>
+                                    @Html.DropDownList("InputId", ViewBag.InputsList as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelect Attachment", "-Select-"), new { id = "InputId", @class = "form-control", @onchange = "GetTemplates();" })
+                                </div>
+                                <div class="col-12 col-lg-6" style="display:none;">
+                                    <label for="label_ar">@EServicesCms.Common.DbManager.GetText("Services", "lblFileName", "Name")  <span class="mRed">*</span></label>
+                                    <input type="text" onkeypress="stripHtmlToText('Name');" onblur="stripHtmlToText('Name');" id="Name" name="Name" required />
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <label for="placeholder_en">@EServicesCms.Common.DbManager.GetText("Services", "lblSelectDocTemplate", "English Template [.docx] only")</label>
+                                    <input id="fileInput" type="file" name="fileInput" />
+                                </div>
+
+                                <div class="col-12 col-lg-3">
+                                    <label for="placeholder_en">@EServicesCms.Common.DbManager.GetText("Services", "lblSelectDocTemplateAr", "Arabic Template [.docx] only")</label>
+                                    <input id="fileInputAlt" type="file" name="fileInputAlt" />
+                                </div>
+
+                                <div class="col-12 col-lg-12">
+                                    <div id="dvTemplatesData">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+    @Html.Raw(ViewBag.PageAlertCodes);
+    GetServiceClassificationsListTemplates('@Model.ServiceId');
+
+    $("#fileInput").change(function () {
+        var fileExtension = ['docx', 'doc'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            Swal.fire({ icon: "info", text: "Only formats are allowed : " + fileExtension.join(', ') })
+            $('#btnSave').prop('disabled', true);
+            return false;
+        }
+        else {
+            $('#btnSave').prop('disabled', false);
+        }
+    });
+    $("#fileInputAlt").change(function () {
+        var fileExtension = ['docx', 'doc'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            Swal.fire({ icon: "info", text: "Only formats are allowed : " + fileExtension.join(', ') })
+            $('#btnSave').prop('disabled', true);
+            return false;
+        }
+        else {
+            $('#btnSave').prop('disabled', false);
+        }
+    });
+</script>

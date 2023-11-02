@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Index";
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <style>
+        .subheader {
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 0 10px #b68a35;
+            text-transform: uppercase;
+            color: #302d2d;
+        }
+    </style>
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) + "?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("NoAction", "Services", null, Request.Url.Scheme, null) + "?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Dashboard", "lblManageServiceNoActions", "Services No Actions")</h1></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("NoActionsSummary", "Services", null, Request.Url.Scheme, null) +"?1=1")">
+                    <button class="main" type="button">@EServicesCms.Common.DbManager.GetText("Services", "lblNoActionsData", "No Actions Data")</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="content p20 tac">
+        @{
+            @*if (EServicesCms.Common.Security.isUserAuthorized("") == true)
+            {
+                <div class="subheader"><h4 class="title">@EServicesCms.Common.DbManager.GetText("Dashboard", "lblNoActionByUserType", "Types of Users")</h4></div>
+                <div class="blocks row stats gx-4 justify-content-center">
+                    @{
+                        var statistics = EServicesCms.Common.DbManager.GetNoActionDashboardByTypeOfUsers();
+                        if (statistics != null)
+                        {
+                            foreach (var iStatistic in statistics)
+                            {
+                                <div class="col-12 col-md-4 col-xl-2"><div class="stat"><i><div class="circleBlack">@iStatistic.Value</div></i><b>@iStatistic.Key</b></div></div>
+                            }
+                        }
+                    }
+                </div>
+            }*@
+
+            if (EServicesCms.Common.Security.isUserAuthorized("") == true)
+            {
+                <div class="subheader"><h4 class="title">@EServicesCms.Common.DbManager.GetText("Dashboard", "lblNoActionByServices", "Types of Services")</h4></div>
+                <div class="blocks row stats gx-4 justify-content-center">
+                    @{
+                        var statisticsDept = EServicesCms.Common.DbManager.GetNoActionDashboardByServices();
+                        if (statisticsDept != null)
+                        {
+                            foreach (var iStatisticD in statisticsDept)
+                            {
+                                <div class="col-12 col-md- col-xl-3"><div class="stat"><i><div class="circleBlack">@iStatisticD.Value</div></i><b>@iStatisticD.Key</b></div></div>
+                            }
+                        }
+                    }
+                </div>
+            }
+
+            if (EServicesCms.Common.Security.isUserAuthorized("") == true)
+            {
+                <div class="subheader"><h4 class="title">@EServicesCms.Common.DbManager.GetText("Dashboard", "lblNoActionByUsers", "Frequent Users")</h4></div>
+                <div class="blocks row stats gx-4 justify-content-center">
+                    @{
+                        var statisticsDept = EServicesCms.Common.DbManager.GetNoActionTopUsers();
+                        if (statisticsDept != null)
+                        {
+                            foreach (var iStatisticD in statisticsDept)
+                            {
+                                <div class="col-12 col-md- col-xl-3"><div class="stat"><i><div class="circleBlack">@iStatisticD.Value</div></i><b>@iStatisticD.Key</b></div></div>
+                            }
+                        }
+                    }
+                </div>
+            }
+        }
+    </div>
+</article>
+<script type="text/javascript">
+
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+
+     @Html.Raw(ViewBag.PageAlertCodes);
+</script>
+
+

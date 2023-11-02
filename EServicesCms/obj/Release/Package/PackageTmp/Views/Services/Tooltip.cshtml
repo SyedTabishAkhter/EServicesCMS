@@ -1,0 +1,158 @@
+﻿@model EServicesCms.Models.ServiceObject
+@{
+    ViewBag.Title = "Index";
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Services.js"></script>
+    int serviceId = 0;
+    if (Model.ParentServiceId > 0)
+    {
+        serviceId = Model.ParentServiceId.Value;
+    }
+    else
+    {
+        serviceId = Model.ServiceId;
+    }
+}
+<article class="">
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Services", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblManageServices", "Manage Services")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Templates", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Services", "lblFormBuilder", "Service Templates")</h1></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                @{
+                    if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_ADD_TOOLTIP") == true)
+                    {
+                                <button class="main" id="btnSave" type="button" onclick="SaveServiceTooltip();">@EServicesCms.Common.DbManager.GetText("Services", "lblTooltipSave", "Save Tooltip")</button>
+                    }
+                }                
+            </div>
+        </div>
+    </div>
+    <div class="sub_header">
+        <div class="page_wrap">
+            @{
+                if (EServicesCms.Common.Helper.CurrentLanguage() == 1)
+                {
+                    <h2>@Model.DescriptionEng</h2>
+                }
+                else
+                { <h2>@Model.DescriptionAlt </h2> }
+
+            <input type="hidden" id="saveUrl" name="saveUrl" value="@Url.Action("SaveTooltip","Services")" />
+            <input id="deleteUrl" type="hidden" value="@Url.Action("AjaxDeleteTooltip", "Services")" />
+            <input id="ajaxUrl" type="hidden" value="@Url.Action("AjaxGetToolTips", "Services")" />
+            <input id="loadClassificationUrl" type="hidden" value="@Url.Action("LoadServiceClassifications", "Services")" />
+            <input id="loadInputsUrl" type="hidden" value="@Url.Action("LoadServiceClassificationsInputs", "Services")" />
+            }
+        </div>
+    </div>
+    <div class="">
+        <div class="py-4">
+            <div class="tabs material">
+                <div class="tab_heads jcc mb10">
+                    <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceDetails", "Service Details")</a>
+                    @{
+                        if (ViewBag.HasSubServices == true)
+                        {
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("SubServices", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblSubServices", "Sub Services")</a>
+                        }
+                        if (ViewBag.HasClassfication == true)
+                        {
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceClassifications", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceClassification", "Classifications")</a>
+                        }
+                        if (ViewBag.ServiceTabs != null)
+                        {
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceTabs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTabs", "Service Tabs")</a>
+                        }
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceInputs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblInputs", "Service Fields")</a>
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FormBuilder", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId+"&inputId=0")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblFormBuilder", "Field Editor")</a>
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Templates", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + serviceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblTemplates", "Templates")</a>
+                        <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Tooltip", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab on">@EServicesCms.Common.DbManager.GetText("Services", "lblToolTip", "Tooltips")</a>
+                        @*<a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblVideo", "Videos")</a>*@
+                    }
+                </div>
+            </div>
+            <div class="page_wrap">
+                <div class="form_built pt20">
+                    <fieldset class="bg_white p40">
+                        <div class="fields">
+                            <div class="row">
+                                @{
+                                    if (ViewBag.Classifications != null)
+                                    {
+                                        <div class="col-12 col-lg-6">
+                                            <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblService", "Service") <span class="mRed">*</span></label>
+                                            @Html.DropDownList("SubServiceId", ViewBag.SubServices as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectService", "Select Service"), new { id = "SubServiceId", @class = "form-control", @onchange = "GetServiceClassificationsListTemplates('" + Model.ServiceId + "');GetInputFields();" })
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12 col-lg-6">
+                                            <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblService", "Service") <span class="mRed">*</span></label>
+                                            @Html.DropDownList("SubServiceId", ViewBag.SubServices as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectService", "Select Service"), new { id = "SubServiceId", @class = "form-control", @onchange = "GetInputFields();" })
+                                        </div>
+                                    }
+                                    if (ViewBag.Classifications != null)
+                                    {
+                                        <div class="col-12 col-lg-6">
+                                            <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblClassification", "Classification") <span class="mRed">*</span></label>
+                                            @Html.DropDownList("CategoryId", ViewBag.Classifications as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectCateogry", "Select Classification"), new { id = "CategoryId", @class = "form-control", @onchange = "GetInputFields();" })
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <label for="classification">@EServicesCms.Common.DbManager.GetText("Services", "lblSelectInputField", "Select Field") <span class="mRed">*</span></label>
+                                    @Html.DropDownList("InputId", ViewBag.InputsList as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectField", "-Select-"), new { id = "InputId", @class = "form-control", @onchange = "GetToolTips();" })
+                                </div>
+
+                                <div class="col-12 col-lg-3">
+                                    <label for="placeholder_en">@EServicesCms.Common.DbManager.GetText("Services", "lblEnableServiceGuideLink", "Enable Service Guide Link")</label>
+                                    <input id="id-button-borders_Guide" name="selChoicesG" type="checkbox" />
+                                </div>
+
+                                <div class="col-12 col-lg-3">
+                                    <label for="placeholder_en">@EServicesCms.Common.DbManager.GetText("Services", "lblEnableServiceCardLink", "Enable Service Card Link")</label>
+                                    <input id="id-button-borders_Card" name="selChoicesC" type="checkbox" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <label for="label_en">@EServicesCms.Common.DbManager.GetText("Services", "lblTooltipEng", "Tooltip English")  <span class="mRed">*</span></label>
+                                    <textarea id="DescriptionEng" rows="3" onkeypress="stripHtmlToText('DescriptionEng');" onblur="stripHtmlToText('DescriptionEng');"></textarea>
+                                </div>
+
+                                <div class="col-12 col-lg-6">
+                                    <label for="label_en">@EServicesCms.Common.DbManager.GetText("Services", "lblTooltipAlt", "Tooltiip Arabic")  <span class="mRed">*</span></label>
+                                    <textarea id="DescriptionAlt" rows="3" onkeypress="stripHtmlToText('DescriptionAlt');" onblur="stripHtmlToText('DescriptionAlt');"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 col-lg-12">
+                                    <div id="dvTemplatesData">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+    @Html.Raw(ViewBag.PageAlertCodes);
+</script>

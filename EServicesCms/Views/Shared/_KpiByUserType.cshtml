@@ -1,0 +1,221 @@
+﻿
+<div id="categoryContainer4">
+    <div style="position: relative;right: 1em; top: 0em;text-align:right;">
+        @*<img src="@Url.Content("~/Content/images/enlarg_icn.png")" style="cursor:pointer;height:30px;" onclick="maximizeRatings();" />
+            &nbsp;|&nbsp;*@
+        <select style="width:100px;" name="ddlyear_UT" id="ddlyear_UT" onchange="DrawUserTypes_LINE('categoryContainer4Chart');">
+            @{
+                for (int iYear = 2023; iYear <= DateTime.Now.Year + 1; iYear++)
+                {
+                    if (iYear == DateTime.Now.Year)
+                    {
+                        <option value="@iYear" selected>&nbsp;@iYear</option>
+                    }
+                    else
+                    {
+                        <option value="@iYear">&nbsp;@iYear</option>
+                    }
+                }
+            }
+        </select>
+        <select style="width:100px;" name="dddlMonth_UT" id="dddlMonth_UT" onchange="DrawUserTypes_LINE('categoryContainer4Chart');">
+            <option value="">-Month-</option>
+            @{
+                for (int i = 0; i < 12; i++)
+                {
+                    @*if ((i + 1) == DateTime.Now.Month)
+                    {
+                        <option value="@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]" selected>&nbsp;@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]</option>
+                    }
+                    else*@
+                    {
+                        <option value="@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]">&nbsp;@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <div id="categoryContainer4Chart"></div>
+    <div id="categoryContainer4Title">
+        <div id="categoryContainer4Popup"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        DrawUserTypes_LINE('categoryContainer4Chart', 'categoryContainer4');
+    });
+
+    function DrawUserTypes_LINE(containerId, titleContainerId) {
+
+        $("#" + containerId).html("<img src='@Url.Content("~/Content/images/PreLoad.gif")' style='display:block;margin-top:10px;'  />");
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+             url: "@Url.Action("AjaxGetServiceGuideByUserTypes", "Dashboard")",
+            data: JSON.stringify({
+                "yearValue": $("#ddlyear_UT").val(),
+                "monthName": $("#dddlMonth_UT").val()
+            }),
+            dataType: "json",
+            success: function (Result) {
+                $("#" + containerId).empty();
+                Result = Result.d;
+                console.log(Result);
+                if (Result == null || Result == "" || Result.Series == null) {
+                    $("#" + containerId).prepend("<div class='empty-state__message'>Sorry ! No records has been added yet.</div>");
+                    return
+                }
+                DrawUserTypeLINEOptions(Result, containerId, titleContainerId);
+            },
+            error: function (Result) {
+                alert("Error");
+            }
+        });
+    }
+
+    function DrawUserTypeLINEOptions(data, containerId, titleContainerId) {
+        Highcharts.setOptions({
+            lang: {
+                thousandsSep: ""
+            }
+        });
+
+        $("#" + titleContainerId).prepend("<div id='" + containerId + "-" + titleContainerId + "' class='dashboardTitle'>" + data.Title + "</div>");
+
+        $('#' + containerId).highcharts({
+            chart: {
+                type: 'column',
+                //options3d: {
+                //    enabled: true,
+                //    alpha: 15,
+                //    beta: 15,
+                //    viewDistance: 25,
+                //    depth: 40
+                //}
+                //,
+                style: {
+                    fontFamily: 'Droid Arabic Kufi'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: data.SubTitle
+            },
+            xAxis: {
+                //categories: data.XAxisCategories
+            },
+            yAxis: {
+                min: 0,
+                title: { text: data.YAxisTitle, aligh: 'high' },
+                labels: { overflow: 'jsutify' },
+                stackLabels: {
+                    enabled: false,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            tooltip: {
+                useHTML: true,
+                valueSuffix: data.YAxisTooltipValueSuffix
+            },
+            plotOptions: {
+                column: {
+                    //colorByPoint: true,
+                    showInLegend: true,
+                    //size: '75%',
+                    //center: ['30%', '50%'],
+                    //stacking: 'normal',
+                    depth: 40,
+                    series: {
+                        color: '#FF0000'
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        y: -20,
+                        style: {
+                            fontSize: '8px',
+                            fontFamily: 'Verdana, sans-serif',
+                            fontWeight: 'bold',
+                        }
+                    },
+                    //
+                },
+                series: {
+                    events: {
+                        legendItemClick: function (event) {
+                            return false;
+                        }
+                    },
+                    cursor: 'pointer',
+                    minPointLength: 3,
+                    point: {
+                        events: {
+                            click: function (event) {
+                                //alert('Value1:' + this.category + ', Value2: ' + this.y + ', Value:' + this.series.name)
+
+                                ////var redirectUrl = "";
+                                ////var title = this.series.name + " " + this.category;
+
+                                ////switch (this.series.name) {
+                                ////    case "لا خطر":
+                                ////    case "خطر قليل":
+                                ////    case "خطر متوسط":
+                                ////    case "مخاطرة عالية":
+                                ////        redirectUrl = "/Establishment/Companies?categoryId=&riskLevel=&emirateID=&hasBlock=&hasBlackList=&viewTitle=" + title + "&emiratesName=" + this.category + "&riskLevelName=" + this.series.name + "&categoryName=&isRegistered=&hasInspections=&yearValue=";
+                                ////        window.top.location.href = redirectUrl;
+                                ////        break;
+
+                                ////    case "مجموع":
+                                ////        redirectUrl = "/Establishment/Companies?categoryId=&riskLevel=&emirateID=&hasBlock=&hasBlackList=&viewTitle=" + title + "&emiratesName=" + this.category + "&riskLevelName=&categoryName=&isRegistered=&hasInspections=&yearValue=";
+                                ////        window.top.location.href = redirectUrl;
+                                ////        break;
+
+                                ////    default:
+                                ////        return;
+                                ////        break;
+                                ////}
+                            }
+                        }
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                layout: 'vertical',
+                x: -10,
+                y: 18,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#ffffff'),
+                shadow: true,
+                itemStyle: {
+                    fontWeight: 'normal',
+                    font: '7pt Droid Arabic Kufi'
+                },
+                itemclick: function (e) {
+                    console.log("legend click: " + e.dataPointIndex);
+                    console.log(e);
+                    if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                        e.dataSeries.visible = false;
+                    } else {
+                        e.dataSeries.visible = true;
+                    }
+
+                    e.chart.render();
+                }
+            },
+            series: data.Series
+        });
+    }
+
+</script>

@@ -1,0 +1,121 @@
+﻿
+@{
+    <link href="~/Content/dashboard.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.awesomeCloud-0.2.js"></script>
+    <style type="text/css">
+        .wordcloud {
+            height: 4in;
+            margin: 0.5in auto;
+            padding: 0;
+            width: 7in;
+            position: relative;
+            z-index: 1;
+            direction:ltr;
+        }
+    </style>
+}
+<div id="categoryContainer5">
+
+    <div style="text-align:center;font-weight:bold;padding-top:10px;">
+        @EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblKpiKeywordsHeader", "Most Searched Keywords")
+    </div>
+
+    <div style="position: relative;right: 1em; top: 0em;text-align:right;">
+        @*<img src="@Url.Content("~/Content/images/enlarg_icn.png")" style="cursor:pointer;height:30px;" onclick="maximizeRatings();" />
+            &nbsp;|&nbsp;*@
+        <select style="width:100px;" name="ddlyear_KEY" id="ddlyear_KEY" onchange="LoadData();">
+            @{
+                for (int iYear = 2023; iYear <= DateTime.Now.Year + 1; iYear++)
+                {
+                    if (iYear == DateTime.Now.Year)
+                    {
+                        <option value="@iYear" selected>&nbsp;@iYear</option>
+                    }
+                    else
+                    {
+                        <option value="@iYear">&nbsp;@iYear</option>
+                    }
+                }
+            }
+        </select>
+        <select style="width:100px;" name="dddlMonth_KEY" id="dddlMonth_KEY" onchange="LoadData();">
+            <option value="">-Month-</option>
+            @{
+                for (int i = 0; i < 12; i++)
+                {
+                    @*if ((i + 1) == DateTime.Now.Month)
+                        {
+                            <option value="@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]" selected>&nbsp;@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]</option>
+                        }
+                        else*@
+                    {
+                        <option value="@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]">&nbsp;@System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames[i]</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+
+
+    <div id="categoryContainer5Chart">
+        <div id="wordcloud2" class="wordcloud"></div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        LoadData();
+
+    });
+
+    function LoadData() {
+
+        $("#wordcloud2").html("<img src='@Url.Content("~/Content/images/PreLoad.gif")' style='display:block;margin-top:10px;'  />");
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "@Url.Action("AjaxGetServiceGuideByKeywords", "Dashboard")",
+            data: JSON.stringify({
+                "yearValue": $("#ddlyear_KEY").val(),
+                "monthName": $("#dddlMonth_KEY").val()
+            }),
+            dataType: "json",
+            success: function (Result) {
+
+                $("#wordcloud2").empty();
+                Result = Result.d;
+
+                if (Result == null || Result == "") {
+                    $("#wordcloud2").prepend("<div class='empty-state__message'>Sorry ! No records has been added yet.</div>");
+                    return;
+                }
+                $("#wordcloud2").html(Result);
+                setTimeout(WordCloud(), 1000);
+            },
+            error: function (Result) {
+                alert("Error");
+            }
+         });
+    }
+
+    function WordCloud() {
+        $("#wordcloud2").awesomeCloud({
+            "size": {
+                "grid": 9,
+                "factor": 1
+            },
+            "options": {
+                "color": "random-dark",
+                "rotationRatio": 0.35
+            },
+            "font": "'Droid Arabic Kufi'",
+            "shape": "circle"
+        });
+    }
+
+    function resize() {
+        $("#awesomeCloudwordcloud2").outerHeight($(window).height() - $("#awesomeCloudwordcloud2").offset().top - Math.abs($("#awesomeCloudwordcloud2").outerHeight(true) - $("#awesomeCloudwordcloud2").outerHeight()));
+    }
+</script>
+

@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Index";
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Lookup.js"></script>
+    <link href="~/Content/MyModal.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+        .ui-widget-header {
+            background: #e3c27c;
+            text-align: center;
+        }
+    </style>
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Users", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Labels", "Lookup", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Lookup", "lblManageLabel", "Manage Labels")</h1></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                <input type="search" name="name_filter" id="name_filter" placeholder="">
+                @Html.DropDownList("FViewId", ViewBag.Views as SelectList, EServicesCms.Common.DbManager.GetText("Lookup", "lblSelectView", "Select View"), new { id = "FViewId", @class = "form-control", @onchange = "GetData();" })
+                <button type="button" class="filter" onclick="GetData();">@EServicesCms.Common.DbManager.GetText("Users", "lblFilter", "Filter")</button>
+                <button type="button" class="clear" onclick="ResetLabelSearch();">@EServicesCms.Common.DbManager.GetText("Users", "lblClear", "Clear")</button>
+                <input type="hidden" id="gridUrl" value="@Url.Action("AjaxGetLabels", "Lookup")" />
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="py-4">
+
+            <div class="content p20 tac">
+                <table id='dynamic-table' class="table-striped table-bordered table-hover dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th data-label="FullName">@EServicesCms.Common.DbManager.GetText("Lookup", "lblViewId", "ViewId")</th>
+                            @*<th data-label="DepartmentName">@EServicesCms.Common.DbManager.GetText("Lookup", "lblLabelId", "LabelId")</th>*@
+                            <th data-label="Email">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionEng", "English")</th>
+                            <th data-label="Mobile">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionAlt", "Arabic")</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<div id="dvForm" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h2>@EServicesCms.Common.DbManager.GetText("Lookup", "lblManageLabel", "Manage Label")</h2>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-horizontal">
+                            <div class="form-group" style="display:none;">
+                                <label for="" class="col-sm-3 control-label smallText">Code</label>
+                                <div class="col-sm-6 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-info"></i></span>
+                                    <input type="text" class="form-control" id="AbbrId" value="0" />
+                                    <input type="text" class="form-control" id="ViewId" value="" />
+                                    <input type="text" class="form-control" id="LabelId" value="" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionEng", "English") <span class="mRed">*</span></label>
+                                <div class="col-sm-11 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('DescriptionEng');" onblur="stripHtmlToText('DescriptionEng');" class="form-control" id="DescriptionEng" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Lookup", "lblDescriptionAlt", "Arabic") <span class="mRed">*</span></label>
+                                <div class="col-sm-11 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" onkeypress="stripHtmlToText('DescriptionAlt');" onblur="stripHtmlToText('DescriptionAlt');" class="form-control" id="DescriptionAlt" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row" align="center">
+                    <div class="col-md-12">
+                        <button type="button" id="btnSave" class="btn btn-sm btn-warning" onclick="SaveLabel();"><i class="ace-icon fa fa-save"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblSave", "Save")</button>
+                        <button type="button" id="btnClose" onclick="CloseLabelForm();" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-remove"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblClose", "Close")</button>
+                        <input id="saveUrl" type="hidden" value="@Url.Action("AjaxSaveLabel", "Lookup")" />
+                        <input id="pageNo" type="hidden" value="0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+    @Html.Raw(ViewBag.PageAlertCodes);
+
+    var modal = document.getElementById("dvForm");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    if (btn != null) {
+        btn.onclick = function () {
+            clearUserInput();
+            modal.style.display = "block";
+        }
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            clearUserInput();
+            modal.style.display = "none";
+        }
+    }
+
+    var table = null;
+    PopulateLabelsGrid();
+
+</script>
+

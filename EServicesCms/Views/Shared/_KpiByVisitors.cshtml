@@ -1,0 +1,137 @@
+﻿<div id="categoryContainer3">
+    <div style="position: relative;right: 1em; top: 0em;text-align:right;">
+        @*<img src="@Url.Content("~/Content/images/enlarg_icn.png")" style="cursor:pointer;height:30px;" onclick="maximizeRatings();" />
+        &nbsp;|&nbsp;*@
+        <select style="width:100px;" name="ddlyear_Hits" id="ddlyear_Hits" onchange="DrawGuideVisitors_PIE('categoryContainer3Chart');">
+            @{
+                for (int iYear = 2023; iYear <= DateTime.Now.Year + 1; iYear++)
+                {
+                    if (iYear == DateTime.Now.Year)
+                    {
+                        <option value="@iYear" selected>&nbsp;@iYear</option>
+                    }
+                    else
+                    {
+                        <option value="@iYear">&nbsp;@iYear</option>
+                    }
+                }
+            }
+        </select>
+        
+    </div>
+    <div id="categoryContainer3Chart"></div>
+    <div id="categoryContainer3Title">
+        <div id="categoryContainer3Popup"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        DrawGuideVisitors_PIE('categoryContainer3Chart','categoryContainer3');
+    });
+
+    function DrawGuideVisitors_PIE(containerId, titleContainerId) {
+
+        $("#" + containerId).html("<img src='@Url.Content("~/Content/images/PreLoad.gif")' style='display:block;margin-top:10px;'  />");
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "@Url.Action("AjaxGetServiceGuideVisitors", "Dashboard")",
+            data: JSON.stringify({
+                "yearValue": $("#ddlyear_Hits").val()
+            }),
+            dataType: "json",
+            success: function (Result) {
+
+                $("#" + containerId).empty();
+                Result = Result.d;
+
+                if (Result == null || Result == "") {
+                    $("#" + titleContainerId).empty();
+                    $("#" + titleContainerId).prepend("<div id='" + containerId + "-" + titleContainerId + "' class='dashboardTitle'>@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblKPIVisitorHeader", "Service Guide Visitors by Month for Year") " + $("#ddlyear_Hits").val()+"</div>");
+                    $("#" + containerId).prepend("<div class='empty-state__message'>Sorry ! No records has been added yet.</div>");
+                    return
+                }
+                
+                var data = [];
+
+                for (var i in Result) {
+                    var serie = new Array(Result[i].KPI, Result[i].Value);
+                    data.push(serie);
+                }
+
+                DrawPIEOptions_Visitors(data, containerId, '@EServicesCms.Common.DbManager.GetText("ServiceGuide", "lblKPIVisitorHeader", "Service Guide Visitors by Month for Year") ' + $("#ddlyear_Hits").val()+'', '3', titleContainerId);
+            },
+            error: function (Result) {
+                alert("Error");
+            }
+        });
+    }
+
+    function DrawPIEOptions_Visitors(series, ContainerId, title, categoryId, titleContainerId) {
+
+        $("#" + titleContainerId).prepend("<div id='" + ContainerId + "-" + titleContainerId + "' class='dashboardTitle'>" + title + "</div>");
+
+        $('#' + ContainerId).highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0, //null,
+                plotShadow: false,
+                type: 'pie'
+                , style: {
+                    fontFamily: 'Droid Arabic Kufi'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            colors: ['#f4d37f', '#e59982', '#a0e06b', '#6be0d0', '#6bbde0', '#936be0', '#db679f'],
+            title: {
+                text: null
+            },
+            tooltip: { useHTML: true },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    showInLegend: true,
+                    //innerSize: '60%',
+                    size: '100%',
+                    center: ['50%', '50%'], // set center
+                    dataLabels: {
+                        enabled: true,
+                        //format: '<b>{point.name}</b>: {point.y}',
+                        format: '<b>{point.y}</b>',
+                        style: {
+                            fontSize: '15px',
+                            fontFamily: 'Verdana, sans-serif',
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                layout: 'vertical',
+                x: 0,
+                y: 0,
+                floating: true,
+                itemStyle: {
+                    fontWeight: 'normal',
+                    font: '10pt Droid Arabic Kufi'
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: title,
+                data: series
+            }]
+        });
+    }
+
+</script>
+

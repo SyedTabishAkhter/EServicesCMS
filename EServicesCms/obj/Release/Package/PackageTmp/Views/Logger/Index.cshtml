@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "ErrorLogs";
+    @*<link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.min.css" rel="stylesheet" media="screen">*@
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    @*<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>*@
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+        .ui-widget-header {
+            background: #e3c27c;
+            text-align: center;
+        }
+        .dtFooter2 {
+            padding-top: 4px;
+            padding-right: 6px;
+            padding-left: 6px;
+            padding-bottom: 2px;
+            border: 0px solid lightgray;
+            font-family: 'Droid Arabic Kufi', sans-serif;
+            line-height: 1.5em;
+            font-size: 14px;
+            margin-left: 1px;
+            margin-right: 1px;
+            font-weight: bold;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+            cursor: default;
+            color: #000000 !important;
+            border: 1px solid transparent;
+            background: transparent;
+            box-shadow: none;
+            font-weight: 600;
+        }
+
+        .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+            color: #000000;
+        }
+
+        .dtBg {
+            background-color: #e3c27c;
+        }
+    </style>
+}
+<article>
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Logger", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Logger", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Logger", "lblErrorLog", "Error Logs")</h1></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                <input type="search" name="name_filter" id="name_filter" placeholder="@EServicesCms.Common.DbManager.GetText("Lookup", "lblSearchData", "Search Data")" autocomplete="off">
+                <input type="text" class="form-control" placeholder="From Date..." name="FromDate" id="FromDate" value="@DateTime.Now.AddDays(-7).ToString("MM/dd/yyyy")" />
+                <input type="text" class="form-control" placeholder="To Date..." name="ToDate" id="ToDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                <button class="filter" type="button" onclick="GetData();">@EServicesCms.Common.DbManager.GetText("Logger", "lblFilter", "Filter")</button>
+                <button class="clear" type="button" onclick="clearContainer();">@EServicesCms.Common.DbManager.GetText("Logger", "lblClear", "Clear")</button>
+                <input type="hidden" id="gridUrl" value="@Url.Action("AjaxGetLogger", "Logger")" />
+            </div>
+        </div>
+    </div>
+    <div class="content p20 tac">
+        <table id='dynamic-table' class="table-striped table-bordered table-hover dataTable no-footer">
+            <thead>
+                <tr>
+                    <th data-label="VersionNo">@EServicesCms.Common.DbManager.GetText("Logger", "lblVersionNo", "VersionNo")</th>
+                    <th data-label="Message">@EServicesCms.Common.DbManager.GetText("Logger", "lblMessage", "Message")</th>
+                    <th data-label="Source">@EServicesCms.Common.DbManager.GetText("Logger", "lblSource", "Source")</th>
+                    <th data-label="Error Date">@EServicesCms.Common.DbManager.GetText("Logger", "lblDate", "Error Date")</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</article>
+<script type="text/javascript">
+    @Html.Raw(ViewBag.PageAlertCodes);
+    var table = null;
+
+    PopulateGrid();
+
+    function GetData() {
+        setTimeout('PopulateGrid();', 1000);
+    }
+
+    function clearContainer() {
+        $("#name_filter").val("");
+        var someDate = new Date();
+        var numberOfDaysToAdd = -30;
+        someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+        var dd = someDate.getDate();
+        var mm = someDate.getMonth() + 1;
+        var y = someDate.getFullYear();
+        var fromDate = mm + '/' + dd + '/' + y;
+        $("#FromDate").val(fromDate);
+
+        someDate = new Date();
+        someDate.setDate(someDate.getDate());
+        var dd = someDate.getDate();
+        var mm = someDate.getMonth() + 1;
+        var y = someDate.getFullYear();
+        var ToDate = mm + '/' + dd + '/' + y;
+        $("#ToDate").val(ToDate);
+        setTimeout('PopulateGrid();', 2000);
+    }
+
+    function PopulateGrid() {
+
+        if (table) {
+            table.destroy();
+            $('#dynamic-table tbody').empty();
+            console.log("DONE");
+        }
+
+        var thArray = [];
+        $('#dynamic-table > thead > tr > th').each(function () {
+            thArray.push($(this).text())
+        })
+
+        var iSearch = {};
+        iSearch.SearchCri = $("#name_filter").val();
+        iSearch.FromDate = $("#FromDate").val();
+        iSearch.ToDate = $("#ToDate").val();
+        console.log(JSON.stringify(iSearch));
+
+        table = $('#dynamic-table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "paging": true,
+            "ajax": {
+                "type": "POST",
+                "dataType": 'json',
+                "url": $("#gridUrl").val(),
+                "data": iSearch
+            },
+            pagingType: "full_numbers",
+            deferRender: true,
+            aaSorting: [],
+            "destroy": true,
+            "searching": false,
+            "bLengthChange": false,
+            "responsive": true,
+            "colReorder": true,
+            "retrieve": true,
+            'bPaginate': true,
+            'iDisplayLength': 15,
+            "scrollX": false,
+            "autoWidth": false,
+            initComplete: function (row, data, index) {
+
+            },
+            "order": [[0, 'asc']],
+            "fnDrawCallback": function () {
+                table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                    var row = $(this.node());
+                    for (var i = 0; i < thArray.length; i++) {
+                        var iDataLabel = row.find('td').eq(i);
+                        if (iDataLabel != null)
+                            iDataLabel = iDataLabel.attr("data-label", thArray[i]);
+                    }
+                });
+            },
+            "language": {
+                "paginate": {
+                    "previous": ShowAlert("Previouspage", "1"),
+                    "next": ShowAlert("Nextpage", "1"),
+                    "last": ShowAlert("Lastpage", "1"),
+                    "first": ShowAlert("Firstpage", "1")
+                },
+                "emptyTable": ShowAlert("NoData", "1"),
+                "info": ShowAlert("TblPaging", "1"),
+            }
+        });
+        $("#dynamic-table_wrapper").addClass("dtBg");
+        $("#dynamic-table_info").addClass("dtFooter2");
+        $("#dynamic-table_paginate").addClass("dtFooter2");
+        $('#dynamic-table').show();
+    }
+</script>

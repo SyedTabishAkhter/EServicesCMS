@@ -1,0 +1,436 @@
+﻿@model EServicesCms.Models.ServiceObject
+@{
+    ViewBag.Title = "Index";
+    @*<script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Services.js"></script>
+    <link href="~/Content/MyModal.css" rel="stylesheet" />
+}
+<article class="">
+    <div class="header">
+        <div class="left">
+            <div class="crumbs">
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Dashboard", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblMenuDashboard", "Dashboard")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Index", "Services", null, Request.Url.Scheme, null) +"?id=1")">@EServicesCms.Common.DbManager.GetText("Services", "lblManageServices", "Manage Services")</a>
+                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?id=1")"><h1 class="title">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceDetails", "Service Details")</h1></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="filters">
+                @if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_EXPORT_SERVICE") == true && ViewBag.FormMode != "New")
+                {
+                    <button class="main" type="button" onclick="ExportService('@Model.ExternalServiceID');">@EServicesCms.Common.DbManager.GetText("Services", "lblExportService", "Export Service")</button>
+                    <a id="aExport" style="display:none;" href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ExportService", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" target="_blank"></a>
+                }
+                @if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_NEW_SERVICE") == true ||
+                    EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_UPDATE_SERVICE") == true)
+                {
+                    <button class="main" type="button" onclick="SaveServiceDetails();">@EServicesCms.Common.DbManager.GetText("Services", "lblSaveServiceDetails", "Save Service")</button>
+                }
+
+                @{
+                    if (ViewBag.FormMode == "Edit")
+                    {
+                        if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_NEW_SUB_SERVICE") == true)
+                        {
+                            <button id="myBtn" class="main" type="button" style="display:none;">@EServicesCms.Common.DbManager.GetText("Services", "lblCreateSubService", "Create Sub Service")</button>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="sub_header">
+        <div class="page_wrap">
+            @{
+                if (ViewBag.FormMode == "New")
+                {
+                    if (EServicesCms.Common.Security.isUserAuthorized("MOF_ESRV_NEW_SERVICE") == true)
+                    {
+                        <h2>@EServicesCms.Common.DbManager.GetText("Services", "lblAddService", "ADD NEW SERVICE")</h2>
+                    }
+                }
+                else
+                {
+                    if (EServicesCms.Common.Helper.CurrentLanguage() == 1)
+                    {
+                        <h2>@Model.DescriptionEng</h2>
+                    }
+                    else
+                    { <h2>@Model.DescriptionAlt </h2> }
+                }
+            }
+        </div>
+    </div>
+    <div class="">
+        <div class="py-4">
+            <div class="tabs material">
+                <div class="tab_heads jcc mb10">
+                    <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceDetails", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab on">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceDetails", "Service Details")</a>
+                    @{
+                        if (ViewBag.FormMode == "Edit")
+                        {
+                            <a style="display:@(ViewBag.ShowSubServicesMenu == true?"''":"none")" href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("SubServices", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblSubServices", "Sub Services")</a>
+                            <a style="display:@(ViewBag.ShowClassificationMenu == true?"''":"none")" href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceClassifications", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceClassification", "Classifications")</a>
+                            if (Model.TabularLayout == true)
+                            {
+                                <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceTabs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceTabs", "Service Tabs")</a>
+                            }
+                            <a style="display:@(ViewBag.ShowQuestionsMenu == true?"''":"none")" href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("ServiceInputs", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblInputs", "Service Fields")</a>
+                            <a style="display:@(ViewBag.ShowFormBuilderMenu == true?"''":"none")" href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("FormBuilder", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId+"&inputId=0")" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblFormBuilder", "Field Editor")</a>
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Templates", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblTemplates", "Templates")</a>
+
+                            <a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Tooltip", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblToolTip", "Tooltips")</a>
+                            @*<a href="@EServicesCms.Common.Helper.URL_Encode(Url.Action("Videos", "Services", null, Request.Url.Scheme, null) +"?serviceId=" + Model.ServiceId)" class="tab">@EServicesCms.Common.DbManager.GetText("Services", "lblVideo", "Videos")</a>*@
+
+                        }
+                    }
+                </div>
+            </div>
+            <div class="page_wrap">
+                <div class="bg_white p40">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <label for="Type">@EServicesCms.Common.DbManager.GetText("Services", "lblEntity", "Entity") <span class="mRed">*</span></label>
+                                @{
+                                    var iServiceEntities = new EServicesCms.Models.MOFPortalEntities().ServiceEntities.Where(x => x.IsDeleted == false).OrderBy(x => x.SortOrder).ToList();
+                                    if (iServiceEntities != null && iServiceEntities.Count > 0)
+                                    {
+                                        bool flag = false;
+                                        foreach (var iEntity in iServiceEntities)
+                                        {
+                                            flag = false;
+                                            var iMapping = new EServicesCms.Models.MOFPortalEntities().ServiceEntitiesMappings.Where(x => x.ServiceId == Model.ServiceId && x.EntityId == iEntity.EntityId).FirstOrDefault();
+                                            if (iMapping != null)
+                                            {
+                                                flag = true;
+                                            }
+                                            <div class="col-sm">
+                                                <label>
+                                                    @if (flag == true)
+                                                    {
+                                                        <input id="id-button-borders_@iEntity.EntityId" value="@iEntity.EntityId" checked="checked" name="selChoices" type="checkbox" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input id="id-button-borders_@iEntity.EntityId" value="@iEntity.EntityId" name="selChoices" type="checkbox" />
+                                                    }
+                                                    @if (EServicesCms.Common.Helper.CurrentLanguage() == 1)
+                                                    {
+                                                        <span class="lbl">&nbsp;&nbsp;@iEntity.DescriptionEng</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="lbl">&nbsp;&nbsp;@iEntity.DescriptionAlt</span>
+                                                    }
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>                            
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <label for="Type">@EServicesCms.Common.DbManager.GetText("Services", "lblUserType", "UserType") <span class="mRed">*</span></label>
+                                @{
+                                    int userTypeLookupId = EServicesCms.Common.WebConfig.GetIntValue("Lk_UserType_LookupId");
+                                    var iUserTypes = new EServicesCms.Models.MOFPortalEntities().LookupOptions.Where(x => x.IsDeleted == false && x.LookupId== userTypeLookupId).OrderBy(x => x.SortOrder).ToList();
+                                    if (iUserTypes != null && iUserTypes.Count > 0)
+                                    {
+                                        bool flag = false;
+                                        foreach (var iType in iUserTypes)
+                                        {
+                                            int userTypeId = Convert.ToInt32(iType.Code);
+                                            flag = false;
+                                            var iMapping = new EServicesCms.Models.MOFPortalEntities().ServiceUserTypes.Where(x => x.ServiceId == Model.ServiceId && x.UserTypeId == userTypeId).FirstOrDefault();
+                                            if (iMapping != null)
+                                            {
+                                                flag = true;
+                                            }
+                                            <div class="col-sm">
+                                                <label>
+                                                    @if (flag == true)
+                                                    {
+                                                        <input id="id-button-borders_@iType.Code" value="@iType.Code" checked="checked" name="selUserTypes" type="checkbox" />
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ViewBag.HasUserTypes == false)
+                                                        {
+                                                            <input id="id-button-borders_@iType.Code" value="@iType.Code" checked="checked" name="selUserTypes" type="checkbox" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input id="id-button-borders_@iType.Code" value="@iType.Code" name="selUserTypes" type="checkbox" />
+                                                        }
+                                                    }
+                                                    @if (EServicesCms.Common.Helper.CurrentLanguage() == 1)
+                                                    {
+                                                        <span class="lbl">&nbsp;&nbsp;@iType.DescriptionEng</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="lbl">&nbsp;&nbsp;@iType.DescriptionAlt</span>
+                                                    }
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="DescriptionAlt">@EServicesCms.Common.DbManager.GetText("Services", "lblTitleAr", "Description Arabic") <span class="mRed">*</span></label>
+                                <input type="hidden" value="@Model.ServiceId" Class="form-control" id="ServiceId" />
+                                <input type="hidden" value="@Url.Action("SaveServiceDetails","Services")" Class="form-control" id="saveUrl" />
+                                <input type="text" onkeypress="stripHtmlToText('DescriptionAlt');" onblur="stripHtmlToText('DescriptionAlt');" dir="rtl" name="DescriptionAlt" id="DescriptionAlt" value="@Model.DescriptionAlt" required />
+                            </div>
+                            <div class="col-6">
+                                <label for="DescriptionEng">@EServicesCms.Common.DbManager.GetText("Services", "lblTitleEn", "Description English") <span class="mRed">*</span></label>
+                                <input type="text" onkeypress="stripHtmlToText('DescriptionEng');" onblur="stripHtmlToText('DescriptionEng');" name="DescriptionEng" id="DescriptionEng" value="@Model.DescriptionEng" required />
+                            </div>
+
+                            @*<div class="col-12 col-md-4">
+                <label for="Type">@EServicesCms.Common.DbManager.GetText("Services", "lblEntity", "Entity")</label>
+                @Html.DropDownList("EntityId", ViewBag.Entities as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectEntity", "Select Entity"), new { id = "EntityId", @class = "form-control", @required = "@required" })
+            </div>*@
+                            <div class="col-12 col-md-3">
+                                <label for="Entity">@EServicesCms.Common.DbManager.GetText("Services", "lblType", "Type") <span class="mRed">*</span></label>
+                                @Html.DropDownList("TypeId", ViewBag.Types as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectType", "Select Type"), new { id = "TypeId", @class = "form-control" })
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label for="Entity">@EServicesCms.Common.DbManager.GetText("Services", "lblDepartment", "Department") <span class="mRed">*</span></label>
+                                @Html.DropDownList("DepartmentId", ViewBag.Departments as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblDepartmentId", "Select Department"), new { id = "DepartmentId", @class = "form-control" })
+                            </div>
+                            <div class="col-12 col-md-4" style="display:none;">
+                                <label for="Entity">@EServicesCms.Common.DbManager.GetText("Services", "lblParentService", "Parent Service")</label>
+                                @Html.DropDownList("ParentServiceId", ViewBag.ParentServices as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectParentService", "Select Parent"), new { id = "ParentServiceId", @class = "form-control", @required = "@required" })
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label for="ExternalServiceID">@EServicesCms.Common.DbManager.GetText("Services", "lblExternalServiceId", "External Service Id") <span class="mRed">*</span></label>
+                                <input type="text" onkeypress="stripHtmlToText('ExternalServiceID');" onblur="stripHtmlToText('ExternalServiceID');" id="ExternalServiceID" name="ExternalServiceID" value="@Model.ExternalServiceID" required />
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label for="SortOrder">@EServicesCms.Common.DbManager.GetText("Services", "lblSortOrder", "Sort Order") <span class="mRed">*</span></label>
+                                <input type="number" id="SortOrder" name="SortOrder" value="@Model.SortOrder">
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label for="soWidgetCode">@EServicesCms.Common.DbManager.GetText("Services", "lblsoWidgetCode", "Widget Code")</label>
+                                <input type="text" onkeypress="stripHtmlToText('soWidgetCode');" onblur="stripHtmlToText('soWidgetCode');" id="soWidgetCode" name="soWidgetCode" value="@Model.soWidgetCode" required />
+                            </div>
+
+                            <div class="col-12 col-md-2" style="display:none;">
+                                <label for="Entity">@EServicesCms.Common.DbManager.GetText("Services", "lblSelectApiSource", "Api Source")</label>
+                                @Html.DropDownList("ApiSourceId", ViewBag.ApiSources as SelectList, EServicesCms.Common.DbManager.GetText("Services", "lblSelectApiSource", "Select Api Source"), new { id = "ApiSourceId", @class = "form-control" })
+                            </div>
+
+                            <div class="col-12" style="display:none;">
+                                <label for="ServiceUrl">@EServicesCms.Common.DbManager.GetText("Services", "lblServiceUrl", "Service Url") <span class="mRed">*</span></label>
+                                <input type="text" onkeypress="stripHtmlToText('ServiceUrl');" onblur="stripHtmlToText('ServiceUrl');" name="ServiceUrl" id="ServiceUrl" value="@Model.ServiceUrl" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+
+                            <div class="col-12 col-md-3">
+                                <label for="SortOrder">@EServicesCms.Common.DbManager.GetText("Services", "lblPrintReview", "Print")</label>
+                                <label>
+                                    @if (Model.PrintPreview == true)
+                                    {
+                                        <input id="id-button-borders_PrintPreview" value="@Model.PrintPreview" checked="checked" name="enablePrint" type="checkbox" onclick="IsPrintEnabled();" />
+                                    }
+                                    else
+                                    {
+                                        <input id="id-button-borders_PrintPreview" value="@Model.PrintPreview" name="enablePrint" type="checkbox" onclick="IsPrintEnabled();" />
+                                    }
+                                    <span class="lbl">&nbsp;&nbsp;@EServicesCms.Common.DbManager.GetText("Services", "lblEnable", "Enable")</span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <label for="SortOrder">@EServicesCms.Common.DbManager.GetText("Services", "lblTabLayout", "Tabular Layout")</label>
+                                <label>
+                                    @if (Model.TabularLayout == true)
+                                    {
+                                        <input id="id-button-borders_TabularLayout" value="@Model.TabularLayout" checked="checked" name="selChoices" type="checkbox" />
+                                    }
+                                    else
+                                    {
+                                        <input id="id-button-borders_TabularLayout" value="@Model.TabularLayout" name="selChoices" type="checkbox" />
+                                    }
+                                    <span class="lbl">&nbsp;&nbsp;@EServicesCms.Common.DbManager.GetText("Services", "lblEnable", "Enable")</span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <label for="SortOrder">@EServicesCms.Common.DbManager.GetText("Services", "lblIsAnonymous", "Is Anonymous")</label>
+                                <label>
+                                    @if (Model.IsAnonymous == true)
+                                    {
+                                        <input id="id-button-borders_IsAnonymous" value="@Model.IsAnonymous" checked="checked" name="selChoices1" type="checkbox" onclick="IsAnonymousEnabled();" />
+                                    }
+                                    else
+                                    {
+                                        <input id="id-button-borders_IsAnonymous" value="@Model.IsAnonymous" name="selChoices1" type="checkbox" onclick="IsAnonymousEnabled();" />
+                                    }
+                                    <span class="lbl">&nbsp;&nbsp;@EServicesCms.Common.DbManager.GetText("Services", "lblEnable", "Enable")</span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="row" id="dvPrintMessage" style="display:none;">
+                            <div class="col-12 col-md-6">
+                                <label for="SortOrder">@EServicesCms.Common.DbManager.GetText("Services", "lblPrintMessage", "Print Message English")</label>
+                                <label>
+                                    <textarea id="PrintMessage" name="PrintMessage" rows="3" onkeypress="stripHtmlToText('PrintMessage');" onblur="stripHtmlToText('PrintMessage');">@Model.PrintMessage</textarea>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="SortOrder">@EServicesCms.Common.DbManager.GetText("Services", "lblPrintMessageAr", "Print Message Arabic")</label>
+                                <label>
+                                    <textarea id="PrintMessageAr" name="PrintMessageAr" rows="3" onkeypress="stripHtmlToText('PrintMessageAr');" onblur="stripHtmlToText('PrintMessageAr');">@Model.PrintMessageAr</textarea>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row" id="dvViewers" style="display:none;">
+                            <hr />
+                            <div class="col-12 col-lg-4">
+                                <label><b>@EServicesCms.Common.DbManager.GetText("Services", "lblViewers", "Viewers")</b></label>
+                            </div>
+                            <div class="col-12 col-lg-8">
+                                <div class="right">
+                                    <div class="filters">
+                                        <input type="hidden" id="ajaxGetViewersUrl" value="@Url.Action("AjaxGetViewers", "Services")" />
+                                        <input type="hidden" id="ajaxAddViewersUrl" value="@Url.Action("AjaxAddViewers", "Services")" />
+                                        <input type="hidden" id="ajaxDeleteViewersUrl" value="@Url.Action("AjaxDeleteViewer", "Services")" />
+                                        <input type="hidden" id="ajaxDeleteAllViewersUrl" value="@Url.Action("AjaxDeleteAllViewers", "Services")" />
+                                        <input type="text" onkeypress="stripHtmlToText('ViewerId');" onblur="stripHtmlToText('ViewerId');" id="ViewerId" name="ViewerId" placeholder="@EServicesCms.Common.DbManager.GetText("Services", "lblViewerEmail", "Please Enter Email Address")" />
+                                        <button id="btnAddView" onclick="AddServiceViewers();" class="main" type="button">@EServicesCms.Common.DbManager.GetText("Services", "lblDrilldown", "Add")</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-12">
+                                <div id="dvViewersData">
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <label for="Type"><b>@EServicesCms.Common.DbManager.GetText("Services", "lblCommentsAttachments", "Comments Attachments")</b></label>
+                            <div class="col-12 col-md-2">
+                                <label for="Minimum">@EServicesCms.Common.DbManager.GetText("Services", "lblMinimum", "Minimum")</label>
+                                <input type="number" id="Minimum" name="Minimum" value="@Model.CommentAttachments.Minimum" />
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label for="Minimum">@EServicesCms.Common.DbManager.GetText("Services", "lblMaximum", "Maximum")</label>
+                                <input type="number" id="Maximum" name="Maximum" value="@Model.CommentAttachments.Maximum" />
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label for="MaxSize">@EServicesCms.Common.DbManager.GetText("Services", "lblMaxSize", "MaxSize") -(MB)</label>
+                                <input type="number" id="MaxSize" name="MaxSize" value="@Model.CommentAttachments.MaxSize" />
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<div id="dvForm" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h2>@EServicesCms.Common.DbManager.GetText("Services", "lblAddSubService", "Add Sub Service")</h2>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-horizontal">
+
+                            <div class="form-group" style="display:none;">
+                                <label for="" class="col-sm-3 control-label smallText">Code</label>
+                                <div class="col-sm-6 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-info"></i></span>
+                                    <input type="text" class="form-control" id="Code" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblDescriptionEn", "Description (EN)")</label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" placeholder="Enter Description English" class="form-control" id="SubDescriptionEng" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblDescriptionAr", "Description (AR)")</label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" placeholder="Enter Description Arabic" class="form-control" id="SubDescriptionAlt" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label smallText">@EServicesCms.Common.DbManager.GetText("Services", "lblExternalServiceID", "ExternalServiceID")</label>
+                                <div class="col-sm-8 input-group">
+                                    <span class="input-group-addon"><i class="ace-icon fa fa-pencil"></i></span>
+                                    <input type="text" placeholder="Enter External ServiceId" class="form-control" id="SubExternalServiceID" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>@EServicesCms.Common.DbManager.GetText("Services", "lblUseParent", "Use Parent ServiceId") *</label>
+                                <input type="radio" name="UseParentExternalServiceId" value="true" id="yes" />
+                                <label for="yes">Yes</label>
+                                <input type="radio" name="UseParentExternalServiceId" value="false" id="no" checked />
+                                <label for="no">No</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row" align="center">
+                        <div class="col-md-12">
+                            <button type="button" id="btnSave" class="btn btn-sm btn-warning" onclick="SaveSubService('@Model.ServiceId');"><i class="ace-icon fa fa-save"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblSave", "Save")</button>
+                            <button type="button" id="btnClose" onclick="CloseForm();" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-remove"></i> @EServicesCms.Common.DbManager.GetText("Lookup", "lblClose", "Close")</button>
+                            <input id="createSubServiceUrl" type="hidden" value="@Url.Action("AjaxCreateSubService", "Services")" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var language = "@EServicesCms.Common.Helper.CurrentLanguage()";
+
+    if ("@ViewBag.FormMode" == "Edit") {
+        var modal = document.getElementById("dvForm");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+    IsPrintEnabled();
+    IsAnonymousEnabled();
+
+    @Html.Raw(ViewBag.PageAlertCodes);
+</script>
